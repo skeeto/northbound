@@ -31,6 +31,6 @@ Map.prototype.advance = function() {
     var edge = ++this.edge,
         row = this.get(edge);
     for (var x = 0; x < row.length; x++) {
-        row[x].type = Tile.CORRUPTION;
+        row[x].corrupted = true;
     }
 };

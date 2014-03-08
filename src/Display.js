@@ -28,14 +28,19 @@ Display.prototype.drawMap = function (ctx) {
         var row = map.get(y),
             yy = h - (y + 1 - map.edge) * s;
         for (var x = 0; x < map.width; x++) {
-            var xx = x * s;
-            var base = row[x].type;
-            ctx.drawImage(base, xx, yy, s, s);
-            var obs = row[x].obstacle;
-            if (obs != null) {
-                var overhang = (obs.height - obs.width) / obs.width;
-                ctx.drawImage(obs, xx, yy - overhang * s,
-                              s, s * (1 + overhang));
+            var xx = x * s, tile = row[x], corrupted = tile.corrupted;
+            var base = corrupted ? tile.type.corrupt : tile.type.image;
+            if (base) {
+                ctx.drawImage(base, xx, yy, s, s);
+            }
+            var obstacle = tile.obstacle;
+            if (obstacle != null) {
+                var image = corrupted ? obstacle.corrupt : obstacle.image;
+                if (image) {
+                    var overhang = (image.height - image.width) / image.width;
+                    ctx.drawImage(image, xx, yy - overhang * s,
+                                  s, s * (1 + overhang));
+                }
             }
             if (this.showGrid) {
                 ctx.rect(xx, yy, s, s);
