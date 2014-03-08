@@ -6,6 +6,7 @@ Display.prototype.draw = function(ctx) {
     this.fixup(ctx);
     this.drawMap(ctx);
     this.drawUnits(ctx);
+    this.drawMessages();
 };
 
 Display.prototype.fixup = function(ctx) {
@@ -24,7 +25,7 @@ Display.prototype.drawMap = function (ctx) {
     ctx.strokeStyle = 'gray';
     for (var y = map.edge; y - map.edge < ht; y++) {
         var row = map.get(y),
-            yy = h - (y + 1) * s;
+            yy = h - (y + 1 - map.edge) * s;
         for (var x = 0; x < map.width; x++) {
             var xx = x * s;
             ctx.fillStyle = row[x].type;
@@ -36,7 +37,8 @@ Display.prototype.drawMap = function (ctx) {
 };
 
 Display.prototype.drawUnits = function(ctx) {
-    var units = this.game.units;
+    var units = this.game.units,
+        map = this.game.map;
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         s = w / this.game.map.width,
@@ -46,6 +48,25 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.textBaseline = 'bottom';
     units.forEach(function(u) {
         ctx.fillStyle = u.style;
-        ctx.fillText(u.c, u.x * s, h - (u.y + 1) * s);
+        ctx.fillText(u.c, u.x * s, h - (u.y + 1 - map.edge) * s);
+    });
+};
+
+Display.MESSAGE_TTL = 20;
+
+Display.prototype.drawMessages = function() {
+    var messages = this.game.messages, i = 0, count = this.game.count;
+    $messages.find('.message').each(function() {
+        var message = messages[i], $this = $(this);
+        if (message != null && count - message.count < Display.MESSAGE_TTL) {
+            $this.html(messages[i].message);
+            $this.removeClass();
+            $this.addClass('message');
+            var clazz = messages[i].clazz;
+            if (clazz != null) $this.addClass(clazz);
+            i++;
+        } else {
+            $this.html('');
+        }
     });
 };

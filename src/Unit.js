@@ -13,7 +13,7 @@ Unit.STEP_PLAYER = function(callback) {
     var unit = this;
     display.draw(ctx); /* Update the display at the last moment. */
     var handler = $(document).on('keydown.player', function(event) {
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
         var dx = null, dy = null;
             switch (event.which) {
             case 'h'.charCodeAt(0):
