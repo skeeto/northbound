@@ -13,6 +13,7 @@ Game.prototype.step = function(callback) {
     if (this.count % 3 === 0) {
         this.map.advance();
     }
+    this.map.lurk();
     this._units = this.units.slice(0);
     this._step(callback);
 };

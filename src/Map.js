@@ -34,3 +34,13 @@ Map.prototype.advance = function() {
         row[x].corrupted = true;
     }
 };
+
+Map.prototype.lurk = function() {
+    var lurk = this.edge + 1,
+        row = this.get(lurk);
+    for (var x = 0; x < row.length; x++) {
+        if (Math.random() < 0.1) {
+            row[x].corrupted = true;
+        }
+    }
+};
