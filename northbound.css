@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+    background: black;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#game {
+    background: black;
+    max-width: 800px;
+    height: 100%;
+    margin: 0 auto 0 auto;
+}
+
+#map {
+    width: 100%;
+    height: 98%;
+}
