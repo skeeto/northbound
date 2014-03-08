@@ -17,7 +17,11 @@ Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
         var row = [];
         for (var i = 0; i < this.width; i++) {
-            row.push(new Tile(Tile.GRASS));
+            var tile = new Tile(Tile.GRASS);
+            if (Math.random() < 0.1) {
+                tile.obstacle = Tile.TREE;
+            }
+            row.push(tile);
         }
         this.rows.push(row);
     }

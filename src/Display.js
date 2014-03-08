@@ -1,5 +1,6 @@
 function Display(game) {
     this.game = game;
+    this.showGrid = false;
 }
 
 Display.prototype.draw = function(ctx) {
@@ -23,15 +24,23 @@ Display.prototype.drawMap = function (ctx) {
         s = w / map.width,
         ht = Math.ceil(h / s);
     ctx.strokeStyle = 'gray';
-    for (var y = map.edge; y - map.edge < ht; y++) {
+    for (var y = map.edge + ht - 1; y >= map.edge; y--) {
         var row = map.get(y),
             yy = h - (y + 1 - map.edge) * s;
         for (var x = 0; x < map.width; x++) {
             var xx = x * s;
-            ctx.fillStyle = row[x].type;
-            ctx.fillRect(xx, yy, s, s);
-            //ctx.rect(xx, yy, s, s);
-            //ctx.stroke();
+            var base = row[x].type;
+            ctx.drawImage(base, xx, yy, s, s);
+            var obs = row[x].obstacle;
+            if (obs != null) {
+                var overhang = (obs.height - obs.width) / obs.width;
+                ctx.drawImage(obs, xx, yy - overhang * s,
+                              s, s * (1 + overhang));
+            }
+            if (this.showGrid) {
+                ctx.rect(xx, yy, s, s);
+                ctx.stroke();
+            }
         }
     }
 };

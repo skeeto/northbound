@@ -32,7 +32,6 @@ Array.prototype.shuffle = function(){
 var MUSIC = [
     ["Dark Times.ogg", "Dark Times.mp3"],
     ["Death of Kings.ogg", "Death of Kings.mp3"],
-    ["Enchanted Valley.ogg", "Enchanted Valley.mp3"],
     ["End of the Era.ogg", "End of the Era.mp3"],
     ["Lost Frontier.ogg", "Lost Frontier.mp3"],
     ["The Pyre.ogg", "The Pyre.mp3"]
