@@ -3,7 +3,7 @@ var game = null,
     ctx = null,
     $messages = null;
 
-$(document).ready(function() {
+function start() {
     game = new Game();
     display = new Display(game);
     $messages = $('#messages');
@@ -12,7 +12,6 @@ $(document).ready(function() {
         display.draw(ctx);
     });
     game.message('Escape northward!');
-    music();
 
     function step() {
         if (!game.isDone()) {
@@ -20,7 +19,7 @@ $(document).ready(function() {
         }
     }
     game.step(step);
-});
+}
 
 Array.prototype.shuffle = function(){
     for(var j, x, i = this.length; i;
@@ -43,12 +42,21 @@ var MUSIC = [
 
 var howl = null;
 function music() {
-    var music = MUSIC.shuffle()[0];
+    var song = MUSIC.shuffle()[0];
     howl = new Howl({
-        urls: MUSIC.shuffle()[0],
+        urls: song,
         autoplay: true,
         loop: false,
         volume: 0.25,
         onend: music
     });
 }
+
+$(document).ready(start);
+$(document).ready(music);
+
+Tile.tiles.forEach(function(image) {
+    image.onload = function() {
+        display.draw(ctx);
+    };
+});

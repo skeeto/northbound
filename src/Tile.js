@@ -3,9 +3,12 @@ function Tile(type) {
     this.obstacle = null;
 }
 
+Tile.tiles = [];
+
 Tile.get = function(src) {
     var image = new Image();
     image.src = 'img/' + src;
+    Tile.tiles.push(image);
     return image;
 };
 
