@@ -62,7 +62,7 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.textBaseline = 'bottom';
     units.forEach(function(u) {
         ctx.fillStyle = u.style;
-        ctx.fillText(u.c, u.x * s, h - (u.y + 1 - map.edge) * s);
+        ctx.fillText(u.c, u.x * s, h - (u.y - map.edge) * s);
     });
 };
 

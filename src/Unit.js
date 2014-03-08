@@ -58,10 +58,12 @@ Unit.STEP_PLAYER = function(callback) {
                 break;
             }
         if (dx != null && dy != null) {
-            unit.x += dx;
-            unit.y -= dy;
-            $(document).off('keydown.player');
-            callback();
+            if (!game.map.isSolid(unit.x + dx, unit.y - dy)) {
+                unit.x += dx;
+                unit.y -= dy;
+                $(document).off('keydown.player');
+                callback();
+            }
         }
     });
 };

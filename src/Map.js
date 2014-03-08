@@ -44,3 +44,8 @@ Map.prototype.lurk = function() {
         }
     }
 };
+
+Map.prototype.isSolid = function(x, y) {
+    var tile = this.get(y)[x];
+    return tile == null || tile.obstacle != null && tile.obstacle.solid;
+};

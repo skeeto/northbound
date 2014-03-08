@@ -25,7 +25,7 @@ Tile.corruptImage = function(image) {
     return out;
 };
 
-Tile.get = function(src) {
+Tile.get = function(src, props) {
     var image = new Image();
     image.src = 'img/' + src;
     Tile.tiles.push(image);
@@ -33,6 +33,9 @@ Tile.get = function(src) {
     image.addEventListener('load', function() {
         tile.corrupt = Tile.corruptImage(image);
     });
+    if (props != null) {
+        $.extend(tile, props);
+    }
     return tile;
 };
 
@@ -44,4 +47,4 @@ Tile.WATER1 = Tile.get('tiles/water1.png');
 Tile.WATER2 = Tile.get('tiles/water2.png');
 Tile.WATER3 = Tile.get('tiles/water3.png');
 
-Tile.TREE = Tile.get('trees/Tree1.png');
+Tile.TREE = Tile.get('trees/Tree1.png', {solid: true});
