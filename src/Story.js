@@ -12,8 +12,9 @@ Story.load = function() {
 Story.load();
 
 Story.scripts = {
-    newmember: function() {
-        game.message('You gain a new party member.');
+    newmember: function(name) {
+        game.player.party.push(name);
+        game.message(name + ' joins your party.');
     },
     gold: function(n) {
         game.player.gold += n;
@@ -23,7 +24,7 @@ Story.scripts = {
     }
 };
 
-Story.show = function(story) {
+Story.show = function(story, callback) {
     var title = story.title,
         description = story.description.replace(/\n/g, '</p><p>');
     $('#story .title').html(title);
@@ -35,14 +36,14 @@ Story.show = function(story) {
         $option.html(option.answer);
         $options.append($option);
         $option.on('click', function() {
-            Story.act(option);
+            Story.act(option, callback);
         });
     });
     $('#story .close').hide();
     $('#story').show();
 };
 
-Story.act = function(option) {
+Story.act = function(option, callback) {
     $('#story .description').html(option.result);
     if (option.scripts) {
         option.scripts.forEach(function(script) {
@@ -57,5 +58,30 @@ Story.act = function(option) {
     $('#story .close').show().on('click', function() {
         $('#story .close').hide().off('click');
         $('#story').hide();
+        if (callback != null) {
+            callback();
+        }
+    });
+};
+
+Story.select = function(game) {
+    return Story.stories.filter(function(story) {
+        if (!story.used) {
+            if (story.minParty != null) {
+                if  (this.player.party.length < story.minParty) {
+                    return false;
+                }
+            }
+            if (story.hasPeople != null) {
+                if (!story.hasPeople.every(function(person) {
+                    return this.player.party.indexOf(person) >= 0;
+                })) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     });
 };

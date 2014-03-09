@@ -3,19 +3,35 @@ function Game() {
     this.count = 0;
     this.player = new Unit(this.map.width / 2, this.map.edge + 4, '@');
     this.player.step = Unit.STEP_PLAYER;
+    this.player.party = [];
     this.units = [this.player];
     this._units = null;
     this.messages = [];
 }
 
+Game.ADVANCE_RATE = 3;
+Game.STORY_RATE = 10;
+
 Game.prototype.step = function(callback) {
     this.count++;
-    if (this.count % 3 === 0) {
-        this.map.advance();
+    var storytime = false;
+    if (Math.random() < 1 / Game.STORY_RATE) {
+        var valid = Story.select(this);
+        if (valid.length > 0) {
+            var story = valid[Math.floor(Math.random() * valid.length)];
+            story.used = true;
+            Story.show(story, callback);
+            storytime = true;
+        }
     }
-    this.map.lurk();
-    this._units = this.units.slice(0);
-    this._step(callback);
+    if (!storytime) {
+        if (this.count % Game.ADVANCE_RATE === 0) {
+            this.map.advance();
+        }
+        this.map.lurk();
+        this._units = this.units.slice(0);
+        this._step(callback);
+    }
 };
 
 Game.prototype._step = function(callback) {

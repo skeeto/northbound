@@ -11,7 +11,7 @@
       result: The man faces the south and sits down, awaiting his death.
     - answer: "\"Yes, but you must keep up.\""
       result: The old man joins your party.
-      scripts: [newmember, [karma, 2]]
+      scripts: [[newmember, "Old Ralph"], [karma, 2]]
     - answer: Kill the man and take anything valuable.
       result: >-
         You easily kill the man, who puts up no fight. There are a few
