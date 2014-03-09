@@ -3,10 +3,10 @@ body {
     background: black;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 #game {
+    box-sizing: border-box;
     background: black;
     max-width: 800px;
     height: 100%;
@@ -30,4 +30,46 @@ body {
 
 .message {
     display: block;
+}
+
+#story {
+    position: absolute;
+    box-sizing: border-box;
+    display: none;
+    color: #334;
+    padding: 30px;
+    text-align: justify;
+    width: 700px;
+    top: 30px;
+    left: 50px;
+    background: #fda;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #111;
+    border: 1px solid #007;
+}
+
+#story .title {
+    font-size: 25px;
+    text-align: center;
+}
+
+#story .description {
+    text-indent: 1em;
+}
+
+#story .option {
+    padding: 10px 30px;
+    font-weight: bold;
+    color: #300;
+    cursor: pointer;
+}
+
+#story .option:hover {
+    color: #a00;
+}
+
+#story .close {
+    display: none;
+    float: right;
+    font-size: 20px;
 }
