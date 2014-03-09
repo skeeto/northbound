@@ -1,0 +1,21 @@
+- title: A wanderer asks to join you.
+  description: >-
+
+    A weary old man in ragged clothing approaches you slowly. He must
+    have been following you for awhile now.
+
+    "My entire village fell to the corruption," he says. "I have
+    nothing left except for the clothes on my back. May I travel with
+    you for as long as I am able?"
+
+  options:
+    - answer: "\"No, I can't have you slowing me down.\""
+      result: The man faces the south and sits down, awaiting his death.
+    - answer: "\"Yes, but you must keep up.\""
+      result: The old man joins your party.
+      scripts: [newmember, [karma, 2]]
+    - answer: Kill the man and take anything valuable.
+      result: >-
+        You easily kill the man, who puts up no fight. There are a few
+        coins on his body.
+      scripts: [[karma, -10], [gold, 5]]
