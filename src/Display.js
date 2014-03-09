@@ -5,8 +5,15 @@ function Display(game) {
 
 Display.prototype.draw = function(ctx) {
     this.fixup(ctx);
-    this.drawMap(ctx);
-    this.drawUnits(ctx);
+    var sprites = this.drawMap(ctx);
+    sprites = sprites.concat(this.drawUnits(ctx));
+    sprites.sort(function(a, b) {
+        if(a.y > b.y) return 1;
+        if(a.y < b.y) return -1;
+        return 0;
+    }).forEach(function(s) {
+        s.render();
+    });
     this.drawMessages();
 };
 
@@ -24,6 +31,8 @@ Display.prototype.drawMap = function (ctx) {
         s = w / map.width,
         ht = Math.ceil(h / s);
     ctx.strokeStyle = 'gray';
+
+    var sprites = [];
     for (var y = map.edge + ht - 1; y >= map.edge; y--) {
         var row = map.get(y),
             yy = h - (y + 1 - map.edge) * s;
@@ -38,8 +47,15 @@ Display.prototype.drawMap = function (ctx) {
                 var image = corrupted ? obstacle.corrupt : obstacle.image;
                 if (image) {
                     var overhang = (image.height - image.width) / image.width;
-                    ctx.drawImage(image, xx, yy - overhang * s,
-                                  s, s * (1 + overhang));
+                    var render = (function(xx, yy, image, overhang) {
+                        ctx.drawImage(image, xx, yy - overhang * s,
+                                      s, s * (1 + overhang));
+                    }).bind(this, xx, yy, image, overhang);
+
+                    sprites.push({
+                        y: yy + overhang * s,
+                        render: render
+                    });
                 }
             }
             if (this.showGrid) {
@@ -48,6 +64,7 @@ Display.prototype.drawMap = function (ctx) {
             }
         }
     }
+    return sprites;
 };
 
 Display.prototype.drawUnits = function(ctx) {
@@ -60,9 +77,14 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.font = Math.floor(s) + 'px sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'bottom';
-    units.forEach(function(u) {
-        ctx.fillStyle = u.style;
-        ctx.fillText(u.c, u.x * s, h - (u.y - map.edge) * s);
+    return units.map(function(u) {
+        return {
+            y: h - (u.y - map.edge) * s,
+            render: function() {
+                ctx.fillStyle = u.style;
+                ctx.fillText(u.c, u.x * s, h - (u.y - map.edge) * s);
+            }
+        }
     });
 };
 
