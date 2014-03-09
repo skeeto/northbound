@@ -17,11 +17,26 @@ Story.scripts = {
         game.message(name + ' joins your party.');
         Sfx.play('get');
     },
+    remove: function(name) {
+        game.player.party = game.player.party.filter(function(member) {
+            return name !== member;
+        });
+        game.message(name + ' leaves your party.');
+        Sfx.play('thwart');
+    },
     gold: function(n) {
         game.player.gold += n;
     },
     karma: function(n) {
         game.player.karma += n;
+    },
+    supplies: function(n) {
+        game.player.supplies += n;
+    },
+    advance: function(n) {
+        for (var i = 0; i < n; i++) {
+            game.map.advance();
+        }
     },
     play: function(name, volume) {
         Sfx.play(name, volume);
@@ -70,16 +85,19 @@ Story.act = function(option, callback) {
 };
 
 Story.select = function(game) {
+    if (Story.stories == null) {
+        return [];
+    }
     return Story.stories.filter(function(story) {
         if (!story.used) {
             if (story.minParty != null) {
-                if  (this.player.party.length < story.minParty) {
+                if  (game.player.party.length < story.minParty) {
                     return false;
                 }
             }
             if (story.hasPeople != null) {
                 if (!story.hasPeople.every(function(person) {
-                    return this.player.party.indexOf(person) >= 0;
+                    return game.player.party.indexOf(person) >= 0;
                 })) {
                     return false;
                 }

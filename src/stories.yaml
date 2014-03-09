@@ -17,3 +17,29 @@
         You easily kill the man, who puts up no fight. There are a few
         coins on his body.
       scripts: [[karma, -10], [gold, 5], [play, thwart]]
+
+- title: Old Ralph collapses.
+  hasPeople: ["Old Ralph"]
+  description: >-
+    You hear the dust stir behind you as Old Ralph collapses from
+    exhaustion for the third time. He's struggling to keep pace. The
+    corruption will catch up with you soon if you keep on like this.
+
+    "Just leave me here. I'll only slow you down," he says. Though, as
+    you consider the circumstances, his eyes speak very different
+    words.
+  options:
+    - answer: Rest here for awhile (-10 supplies, corruption advances 5 tiles).
+      result: The rest allowed Old Ralph to recover.
+      scripts: [[supplies, -10], [advance, 5], [karma, 10]]
+    - answer: Leave Old Ralph behind.
+      result: The old man quietly resigns to his fate.
+      scripts: [[remove, "Old Ralph"], [karma, -1]]
+    - answer: >-
+        Put him out of his misery. Better to die here than to the
+        horrors of corruption.
+      result: >-
+        Before Old Ralph realizes what's coming, you quickly run your
+        blade across his throat. Though it feels as if an hour has
+        passed, less than a minute later he is dead.
+      scripts: [[karma, -6], [remove, "Old Ralph"]]

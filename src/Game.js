@@ -4,6 +4,7 @@ function Game() {
     this.player = new Unit(this.map.width / 2, this.map.edge + 4, '@');
     this.player.step = Unit.STEP_PLAYER;
     this.player.party = [];
+    this.player.supplies = 100;
     this.units = [this.player];
     this._units = null;
     this.messages = [];
