@@ -43,6 +43,24 @@ Story.scripts = {
     }
 };
 
+Story.filters = {
+    hasPeople: function(people) {
+        return people.every(function(person) {
+            return game.player.party.indexOf(person) >= 0;
+        });
+    },
+
+    minParty: function(number) {
+        return game.player.party.length >= number;
+    }
+};
+
+Story.filter = function(activeFilters) {
+    return activeFilters.every(function(filterSpec) {
+        return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
+    });
+};
+
 Story.show = function(story, callback) {
     Sfx.play('story');
     var title = story.title,
@@ -89,22 +107,6 @@ Story.select = function(game) {
         return [];
     }
     return Story.stories.filter(function(story) {
-        if (!story.used) {
-            if (story.minParty != null) {
-                if  (game.player.party.length < story.minParty) {
-                    return false;
-                }
-            }
-            if (story.hasPeople != null) {
-                if (!story.hasPeople.every(function(person) {
-                    return game.player.party.indexOf(person) >= 0;
-                })) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return !story.used && (!story.filter || Story.filter(story.filter));
     });
 };

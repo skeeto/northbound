@@ -19,7 +19,7 @@
       scripts: [[karma, -10], [gold, 5], [play, thwart]]
 
 - title: Old Ralph collapses.
-  hasPeople: ["Old Ralph"]
+  filter: [[hasPeople, ["Old Ralph"]]]
   description: >-
     You hear the dust stir behind you as Old Ralph collapses from
     exhaustion for the third time. He's struggling to keep pace. The
