@@ -61,17 +61,23 @@ Story.filter = function(activeFilters) {
     });
 };
 
+Story.expand = function(text) {
+    return Handlebars.compile(text)({
+        game: game
+    });
+};
+
 Story.show = function(story, callback) {
     Sfx.play('story');
-    var title = story.title,
-        description = story.description.replace(/\n/g, '</p><p>');
+    var title = Story.expand(story.title),
+        description = Story.expand(story.description.replace(/\n/g, '</p><p>'));
     $('#story .title').html(title);
     $('#story .description').html('<p>' + description + '</p>');
     var $options = $('#options');
     $options.empty();
     story.options.forEach(function(option) {
         var $option = $('<li/>').addClass('option');
-        $option.html(option.answer);
+        $option.html(Story.expand(option.answer));
         $options.append($option);
         $option.on('click', function() {
             Story.act(option, callback);
@@ -82,7 +88,7 @@ Story.show = function(story, callback) {
 };
 
 Story.act = function(option, callback) {
-    $('#story .description').html(option.result);
+    $('#story .description').html(Story.expand(option.result));
     if (option.scripts) {
         option.scripts.forEach(function(script) {
             if (typeof script === "string") {
