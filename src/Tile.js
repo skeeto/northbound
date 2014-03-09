@@ -48,3 +48,5 @@ Tile.WATER2 = Tile.get('tiles/water2.png');
 Tile.WATER3 = Tile.get('tiles/water3.png');
 
 Tile.TREE = Tile.get('trees/Tree1.png', {solid: true});
+
+Tile.SHADOW = Tile.get('shadow.png');

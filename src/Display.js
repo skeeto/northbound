@@ -78,13 +78,15 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.textAlign = 'left';
     ctx.textBaseline = 'bottom';
     return units.map(function(u) {
+        var y = h - (u.y - map.edge) * s;
         return {
-            y: h - (u.y - map.edge) * s,
+            y: y,
             render: function() {
+                ctx.drawImage(Tile.SHADOW.image, u.x * s, y - s, s, s);
                 ctx.fillStyle = u.style;
-                ctx.fillText(u.c, u.x * s, h - (u.y - map.edge) * s);
+                ctx.fillText(u.c, u.x * s, y);
             }
-        }
+        };
     });
 };
 
