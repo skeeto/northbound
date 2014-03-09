@@ -15,16 +15,21 @@ Story.scripts = {
     newmember: function(name) {
         game.player.party.push(name);
         game.message(name + ' joins your party.');
+        Sfx.play('get');
     },
     gold: function(n) {
         game.player.gold += n;
     },
     karma: function(n) {
         game.player.karma += n;
+    },
+    play: function(name, volume) {
+        Sfx.play(name, volume);
     }
 };
 
 Story.show = function(story, callback) {
+    Sfx.play('story');
     var title = story.title,
         description = story.description.replace(/\n/g, '</p><p>');
     $('#story .title').html(title);

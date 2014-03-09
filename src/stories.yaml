@@ -16,4 +16,4 @@
       result: >-
         You easily kill the man, who puts up no fight. There are a few
         coins on his body.
-      scripts: [[karma, -10], [gold, 5]]
+      scripts: [[karma, -10], [gold, 5], [play, thwart]]

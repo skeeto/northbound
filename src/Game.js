@@ -20,6 +20,7 @@ Game.prototype.step = function(callback) {
         if (valid.length > 0) {
             var story = valid[Math.floor(Math.random() * valid.length)];
             story.used = true;
+            display.draw(ctx);
             Story.show(story, callback);
             storytime = true;
         }
