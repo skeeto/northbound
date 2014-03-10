@@ -1,12 +1,14 @@
-function Display(game) {
+function Display(game, ctx) {
     this.game = game;
     this.showGrid = false;
+    this.ctx = ctx;
 }
 
-Display.prototype.draw = function(ctx) {
-    this.fixup(ctx);
-    var sprites = this.drawMap(ctx);
-    sprites = sprites.concat(this.drawUnits(ctx));
+Display.prototype.draw = function() {
+    var ctx = this.ctx;
+    this.fixup();
+    var sprites = this.drawMap();
+    sprites = sprites.concat(this.drawUnits());
     sprites.sort(function(a, b) {
         if(a.y > b.y) return 1;
         if(a.y < b.y) return -1;
@@ -16,10 +18,11 @@ Display.prototype.draw = function(ctx) {
     });
     this.drawMessages();
     this.drawHUD();
-    this.drawTime(ctx, this.game);
+    this.drawTime(this.game);
 };
 
-Display.prototype.fixup = function(ctx) {
+Display.prototype.fixup = function() {
+    var ctx = this.ctx;
     var canvas = ctx.canvas,
         $parent = $(canvas.parentNode);
     canvas.width = $parent.width();
@@ -34,7 +37,8 @@ Display.prototype.max = function() {
     return this._max || 10;
 };
 
-Display.prototype.drawMap = function (ctx) {
+Display.prototype.drawMap = function () {
+    var ctx = this.ctx;
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
         map = this.game.map,
@@ -82,7 +86,8 @@ Display.prototype.drawMap = function (ctx) {
     return sprites;
 };
 
-Display.prototype.drawUnits = function(ctx) {
+Display.prototype.drawUnits = function() {
+    var ctx = this.ctx;
     var units = this.game.units,
         map = this.game.map;
     var w = ctx.canvas.width,
@@ -135,7 +140,8 @@ Display.prototype.drawHUD = function() {
     $('#time').text(game.timeString());
 };
 
-Display.prototype.drawTime = function(ctx, game) {
+Display.prototype.drawTime = function(game) {
+    var ctx = this.ctx;
     ctx.save();
     var bright = (Math.cos((game.time() + 0.5) * 2 * Math.PI) + 1) / 2;
     ctx.globalAlpha = 0.6 - (Math.sqrt(bright) * 0.6);

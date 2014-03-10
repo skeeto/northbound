@@ -5,12 +5,12 @@ var game = null,
 
 function start() {
     noise.seed(Math.random());
-    game = new Game();
-    display = new Display(game);
-    $messages = $('#messages');
     ctx = $('#map').get(0).getContext('2d');
+    game = new Game();
+    display = new Display(game, ctx);
+    $messages = $('#messages');
     $(window).resize(function() {
-        display.draw(ctx);
+        display.draw();
     });
     game.message('Escape northward!');
 
@@ -31,6 +31,6 @@ $(document).ready(start);
 
 Tile.tiles.forEach(function(image) {
     image.onload = function() {
-        display.draw(ctx);
+        display.draw();
     };
 });

@@ -56,7 +56,7 @@ Game.prototype.step = function(callback) {
         if (valid.length > 0) {
             var story = Game.randomChoice(valid);
             story.used = true;
-            display.draw(ctx);
+            display.draw();
             Story.show(story, callback);
             storytime = true;
         }
@@ -142,7 +142,7 @@ Game.prototype.showEnd = function() {
         $('#gameover .distance').text(this.distance().toFixed(2));
         $('#gameover').show();
     }
-    display.draw(ctx);
+    display.draw();
 };
 
 Game.prototype.alignment = function() {
