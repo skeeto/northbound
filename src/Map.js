@@ -14,8 +14,8 @@ Map.prototype.get = function(y) {
 };
 
 Map.road = function(y, width) {
-    var w2 = width / 2;
-    return Math.round(w2 * noise.perlin3(0.5, y / 20, 0)) + w2;
+    var w2 = width / 2, w3 = width / 3;
+    return Math.round(w3 * noise.perlin3(0.5, y / 20, 0)) + w2;
 };
 
 Map.select = function(value, y) {
