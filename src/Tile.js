@@ -53,5 +53,7 @@ Tile.WATER3 = Tile.get('tiles/water3.png', {solid: true, water: true});
 Tile.TREE = Tile.get('trees/Tree1.png', {solid: true});
 Tile.MOUNTAIN = Tile.get('mountain.png', {solid: true});
 Tile.TALLGRASS = Tile.get('tallgrass.png', {solid: false});
+Tile.SUPPLIES = Tile.get('crates.png', {solid: false, supplies: true});
 
+/* Misc */
 Tile.SHADOW = Tile.get('shadow.png');

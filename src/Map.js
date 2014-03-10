@@ -6,11 +6,11 @@ function Map() {
 
 Map.prototype.width = 32;
 
-Map.prototype.get = function(n) {
-    if (n >= this.rows.length) {
-        this.generate(n);
+Map.prototype.get = function(y) {
+    if (y >= this.rows.length) {
+        this.generate(y);
     }
-    return this.rows[n];
+    return this.rows[y];
 };
 
 Map.road = function(y, width) {
@@ -52,6 +52,7 @@ Map.bselect = function(value, base, y) {
 
 Map.SCALE = 25;
 Map.TREE_SCALE = 8;
+Map.SUPPLY_RATE = 0.01;
 
 Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
@@ -63,6 +64,11 @@ Map.prototype.generate = function(n) {
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
             if (!tile.type.water && tile.type !== Tile.ROAD) {
                 tile.obstacle = Map.bselect(bvalue, tile, y);
+            }
+            if (!tile.obstacle && !tile.type.solid) {
+                if (Math.random() < Map.SUPPLY_RATE) {
+                    tile.obstacle = Tile.SUPPLIES;
+                }
             }
             row.push(tile);
         }

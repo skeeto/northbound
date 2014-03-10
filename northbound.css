@@ -39,6 +39,11 @@ body {
     font-weight: bold;
 }
 
+.noise {
+    color: #fff;
+    opacity: 0.6;
+}
+
 #story {
     position: absolute;
     box-sizing: border-box;

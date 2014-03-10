@@ -77,6 +77,14 @@ Game.prototype.step = function(callback) {
                 }
             }
         }
+        var playertile = this.map.get(this.player.y)[this.player.x];
+        if (playertile.obstacle === Tile.SUPPLIES) {
+            playertile.obstacle = null;
+            var count = Math.random() * 4 + 2;
+            this.player.supplies += count;
+            this.message('You pick up ' + Math.round(count) + ' supplies.',
+                         'noise');
+        }
         this._units = this.units.slice(0);
         this._step(callback);
     }
