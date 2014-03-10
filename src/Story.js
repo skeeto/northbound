@@ -1,5 +1,4 @@
-function Story() {
-}
+var Story = {};
 
 Story.stories = null;
 
@@ -109,6 +108,34 @@ Story.filters = {
         var row = game.map.get(game.player.y);
         var tile = row[game.player.x];
         return tile.corrupted;
+    },
+
+    inCold: function() {
+        var tile = game.map.get(game.player.y)[game.player.x];
+        return tile.cold;
+    },
+
+    inWater: function() {
+        var tile = game.map.get(game.player.y)[game.player.x];
+        return tile.type.water;
+    },
+
+    isNight: function() {
+        var time = game.time();
+        return time < 0.25 || time > 0.25;
+    },
+
+    isDay: function() {
+        var time = game.time();
+        return time > 0.25 || time < 0.25;
+    },
+
+    timeBefore: function(time) {
+        return game.time() < time;
+    },
+
+    timeAfter: function(time) {
+        return game.time() > time;
     },
 
     inState: function(story, state) {
