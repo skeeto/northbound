@@ -117,3 +117,61 @@
       result: >-
         Throwing caution to the wind you move on. Unfortunately the
         ice worsens and someone falls in, drowning.
+
+###
+- title: Bear attack rescue
+  description: >-
+    In the distance you spot a bear clawing at a woman up in a tree.
+    Her leg has already been clawed, now bleeding. It won't be long
+    until she becomes the bear's lunch.
+
+    You could attempt to save her from the bear, though you risk
+    injury to yourself in the process.
+  options:
+    - answer: Helping the woman is too dangerous. Move on.
+      result: You move along. Perhaps she'll be alright on her own.
+    - answer: Attempt to frighten away the bear.
+      filter: [[maxParty, 0]]
+      result: >-
+        You frighten the bear away, though you're injured in the
+        process. You'll need to rest awhile.
+      scripts: [[advance, 6], [karma, 10], [newmember, "Kelsey"]]
+    - answer: Attempt to frighten away the bear.
+      filter: [[minParty, 1]]
+      result: >-
+        Staying together as a group, {{game.player.party.[0]}} takes
+        the lead charging at the bear, frightening it away. You help
+        Kelsey down from the tree.
+
+        "I'm glad I brought my food stash up here with me. I'll share
+        it with you if you let me join you," she says.
+      scripts: [[supplies, 20], [karma, 10], [newmember, "Kelsey"]]
+
+###
+- title: Kelsey has had enough of your behavior
+  filter: [[maxKarma, -50], [hasPeople, "Kelsey"]]
+  description: >-
+    At the next clearing Kelsey stops, lips pursed, hands on her hips.
+    You can see anger in her eyes. "With all these horrible things
+    you've done I can't bear to follow you any further. I'm going my
+    own way now."
+
+  options:
+    - answer: Defiance will not be tolerated.
+      result: >-
+        With one quick move you stab her in the stomach with your
+        knife. She doubles over wincing in pain. You leave her there
+        to bleed to death. Others will now think twice before leaving
+        you.
+      scripts: [[karma, -15], [remove, "Kelsey"]]
+    - answer: Let her go with some supplies.
+      result: >-
+        You allow Kelsey to leave with some supplies. Perhaps she'll
+        forgive you someday, if she survives on her own.
+      scripts: [[karma, 10], [supplies, -15], [remove, "Kelsey"]]
+    - answer: >-
+        Don't allow her to take any supplies.
+      result: >-
+        Kelsey walks off on her own. Without any food she probably
+        won't last very long out there.
+      scripts: [[karma, -2], [remove, "Kelsey"]]

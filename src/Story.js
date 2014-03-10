@@ -100,8 +100,20 @@ Story.filters = {
         return game.player.party.length >= number;
     },
 
+    maxParty: function(number) {
+        return game.player.party.length <= number;
+    },
+
     minSupplies: function(number) {
         return game.player.supplies >= number;
+    },
+
+    maxKarma: function(number) {
+        return game.player.karma <= number;
+    },
+
+    minKarma: function(number) {
+        return game.player.karma >= number;
     },
 
     inCorruption: function() {
