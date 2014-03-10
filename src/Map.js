@@ -13,7 +13,8 @@ Map.prototype.get = function(n) {
     return this.rows[n];
 };
 
-Map.select = function(value) {
+Map.select = function(value, y) {
+    if (y < 8) value = Math.pow(value, 8 - y);
     if (value > 0.8) {
         return new Tile(Tile.WATER3);
     } else if (value > 0.75) {
@@ -32,13 +33,11 @@ Map.select = function(value) {
 };
 
 Map.bselect = function(value, y) {
-    var limit = y < 10 ? (10 - y) : 0.22;
-    if (value > limit) {
-        if (value > 0.5) {
-            return Tile.MOUNTAIN;
-        } else {
-            return Tile.TREE;
-        }
+    if (y < 8) value = Math.pow(value, 8 - y);
+    if (value > 0.5) {
+        return Tile.MOUNTAIN;
+    } else if (value > 0.22) {
+        return Tile.TREE;
     } else {
         return null;
     }
@@ -52,10 +51,10 @@ Map.prototype.generate = function(n) {
         var row = [], y = this.rows.length;
         for (var x = 0; x < this.width; x++) {
             var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
-                tile = Map.select(tvalue),
+                tile = Map.select(tvalue, y),
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
             if (!tile.type.water) {
-                tile.obstacle = Map.bselect(bvalue);
+                tile.obstacle = Map.bselect(bvalue, y);
             }
             row.push(tile);
         }
