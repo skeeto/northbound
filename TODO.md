@@ -4,9 +4,9 @@
 * special items
 * snow up north?
 * endgame?
-* day/night cycles?
 * quest/event markers (roaming "monster" events?)
 * remember volume setting (muted/unmuted)
+* keyboard controls on events/story
 
 ## ideas
 * characters that respond to alignment

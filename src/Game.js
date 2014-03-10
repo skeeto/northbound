@@ -163,3 +163,23 @@ Game.prototype.alignment = function() {
         return 'Neutral';
     }
 };
+
+Game.TIMESCALE = 480;
+
+/**
+ * @returns {number} the time of day between 0 and 1, 0 being midnight
+ */
+Game.prototype.time = function() {
+    var scale = Game.TIMESCALE;
+    return ((this.count + scale / 2) % scale) / scale;
+};
+
+Game.prototype.timeString = function() {
+    var time = this.time(),
+        hour = Math.floor(time * 24),
+        minute = Math.floor((time % (1 / 24)) * 60 * 24),
+        m = hour < 12 ? 'am' : 'pm',
+        h12 = (hour % 12) == 0 ? '12' : hour % 12;
+    if (minute < 10) minute = '0' + minute;
+    return h12 + ':' + minute + m;
+};

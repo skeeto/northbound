@@ -99,15 +99,17 @@ body {
     padding-right: 5px;
     color: white;
     text-align: right;
+    font-weight: bold;
 }
 
 #supplies {
     color: #ff7;
-    font-weight: bold;
 }
 
 #alignment {
-    font-weight: bold;
+}
+
+#time {
 }
 
 #gameover {

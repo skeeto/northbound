@@ -16,6 +16,7 @@ Display.prototype.draw = function(ctx) {
     });
     this.drawMessages();
     this.drawHUD();
+    this.drawTime(ctx, this.game);
 };
 
 Display.prototype.fixup = function(ctx) {
@@ -127,4 +128,14 @@ Display.prototype.drawHUD = function() {
         .text(game.alignment())
         .removeClass()
         .addClass('alignment-' + game.alignment());
+    $('#time').text(game.timeString());
+};
+
+Display.prototype.drawTime = function(ctx, game) {
+    ctx.save();
+    var bright = (Math.cos((game.time() + 0.5) * 2 * Math.PI) + 1) / 2;
+    ctx.globalAlpha = 0.6 - (Math.sqrt(bright) * 0.6);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.restore();
 };
