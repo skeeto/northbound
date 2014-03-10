@@ -29,6 +29,10 @@ Display.prototype.min = function() {
     return Math.min(this.game.map.edge, this.game.player.y);
 };
 
+Display.prototype.max = function() {
+    return this._max || 10;
+};
+
 Display.prototype.drawMap = function (ctx) {
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
@@ -39,6 +43,7 @@ Display.prototype.drawMap = function (ctx) {
 
     var sprites = [];
     var min = this.min();
+    this._max = min + ht;
     for (var y = min + ht - 1; y >= min; y--) {
         var row = map.get(y),
             yy = h - (y + 1 - min) * s;
