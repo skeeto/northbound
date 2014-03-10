@@ -1,4 +1,4 @@
-- title: A wanderer asks to join you.
+- title: A wanderer asks to join you
   description: >-
     A weary old man in ragged clothing approaches you slowly. He must
     have been following you for awhile now.
@@ -19,7 +19,7 @@
       scripts: [[karma, -10], [supplies, 5], [play, thwart]]
 
 ###
-- title: Old Ralph collapses.
+- title: Old Ralph collapses
   filter: [[hasPeople, "Old Ralph"]]
   description: >-
     You hear the dust stir behind you as Old Ralph collapses from
@@ -62,7 +62,7 @@
       result: You recover a few supplies.
       scripts: [[supplies, -10], [advance, 5], [supplies, "2d10"]]
     - answer: Follow Old Ralph (gain 30 supplies, corruption advances 2 tiles).
-      result: You leave with bags will filled and even a little hope.
+      result: You leave with bags filled and even a little hope.
       scripts: [[supplies, 30], [advance, 2]]
       filter: [[hasPeople, "Old Ralph"]]
     - answer: Ignore the door
