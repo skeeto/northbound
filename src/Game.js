@@ -60,8 +60,6 @@ Game.prototype.step = function(callback) {
             this.map.advance();
         }
         this.map.lurk();
-        this._units = this.units.slice(0);
-        this._step(callback);
         var inCorruption = this.inCorruption();
         this.player.supplies
             -= this.player.party.length * inCorruption ? 3 : 0.2;
@@ -72,13 +70,15 @@ Game.prototype.step = function(callback) {
                 if (party.length === 0) {
                     this.message('You have starved to death!', 'danger');
                     this.end();
+                    callback();
                 } else {
                     var dead = party.pop();
                     this.message(dead + ' has starved to death!', 'danger');
                 }
             }
         }
-
+        this._units = this.units.slice(0);
+        this._step(callback);
     }
 };
 
@@ -107,6 +107,9 @@ Game.prototype.message = function(message, clazz) {
         clazz: clazz,
         count: this.count
     });
+    if (clazz === 'danger') {
+        Sfx.play('notify');
+    }
 };
 
 /** @returns {number} distance player has traveled in miles */
