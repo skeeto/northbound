@@ -73,3 +73,14 @@ body {
     float: right;
     font-size: 20px;
 }
+
+#supplies {
+    position: absolute;
+    color: white;
+    right: 0px;
+    top: 0px;
+    padding-top: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    color: #ff7;
+}

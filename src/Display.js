@@ -15,6 +15,7 @@ Display.prototype.draw = function(ctx) {
         s.render();
     });
     this.drawMessages();
+    this.drawHUD();
 };
 
 Display.prototype.fixup = function(ctx) {
@@ -113,4 +114,8 @@ Display.prototype.drawMessages = function() {
             $this.html('');
         }
     });
+};
+
+Display.prototype.drawHUD = function() {
+    $('#supplies').text(Math.floor(this.game.player.supplies) + ' supplies');
 };
