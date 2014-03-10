@@ -66,3 +66,30 @@
     - answer: Ignore the door
       result: You press on, ignoring the distraction.
       scripts: [[play, thwart]]
+
+- title: Into the darkness
+  filter: [[inCorruption]]
+  description: >-
+    The stillness of the corruption invades your mind. Its silent
+    warmth beckons you to join it to yourself.
+
+    Shuddering, you realize that you are both surrounded by the
+    corruption and a powerful will.
+
+  options:
+    - answer: Drop your pack and push towards the light ahead (-20 supplies).
+      result: You refuse to give in to your growing dread.
+      scripts: [[supplies, -20]]
+      filter: [[minSupplies, 20]]
+
+    - answer: Run ahead without waiting on the others.
+      result: You run shrieking towards the light. Not everyone can keep up.
+      scripts: [[removeRandom]]
+      filter: [[minParty, 1]]
+
+    - answer: Stop and let the stillness wash over you.
+      result: >-
+        All sound is gone. All fear is gone. All hope. Gone. You have
+        finally found a sort of peace. The darkness has a warmth of
+        its own.
+      scripts: [[gameOver]]

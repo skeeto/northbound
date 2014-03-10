@@ -45,6 +45,9 @@ Story.scripts = {
         game.message(name + ' leaves your party.');
         Sfx.play('thwart');
     },
+    removeRandom: function() {
+        Story.scripts.remove(Game.randomChoice(game.player.party));
+    },
     karma: function(n) {
         game.player.karma += Story.toNumber(n);
     },
@@ -58,6 +61,9 @@ Story.scripts = {
     },
     play: function(name, volume) {
         Sfx.play(name, volume);
+    },
+    gameOver: function() {
+        game.gameOver = true;
     }
 };
 
@@ -70,6 +76,16 @@ Story.filters = {
 
     minParty: function(number) {
         return game.player.party.length >= number;
+    },
+
+    minSupplies: function(number) {
+        return game.player.supplies >= number;
+    },
+
+    inCorruption: function() {
+        var row = game.map.get(game.player.y);
+        var tile = row[game.player.x];
+        return tile.corrupted;
     }
 };
 

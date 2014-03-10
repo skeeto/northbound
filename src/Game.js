@@ -13,13 +13,21 @@ function Game() {
 Game.ADVANCE_RATE = 3;
 Game.STORY_RATE = 10;
 
+Game.randomIndex = function(arr) {
+    return Math.floor(Math.random() * arr.length);
+};
+
+Game.randomChoice = function(arr) {
+    return arr[Game.randomIndex(arr)];
+};
+
 Game.prototype.step = function(callback) {
     this.count++;
     var storytime = false;
     if (Math.random() < 1 / Game.STORY_RATE) {
         var valid = Story.select(this);
         if (valid.length > 0) {
-            var story = valid[Math.floor(Math.random() * valid.length)];
+            var story = Game.randomChoice(valid);
             story.used = true;
             display.draw(ctx);
             Story.show(story, callback);
@@ -52,7 +60,7 @@ Game.prototype._step = function(callback) {
 };
 
 Game.prototype.isDone = function() {
-    return false;
+    return this.gameOver;
 };
 
 Game.prototype.message = function(message, clazz) {
