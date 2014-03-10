@@ -1,8 +1,8 @@
 * title screen (logo, scrolling?)
-* mute buttons (music, sfx)
 * show party
 * special items
 * snow up north?
 * endgame?
+* day/night cycles?
 
 * characters that respond to alignment

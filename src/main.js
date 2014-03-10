@@ -59,3 +59,18 @@ Tile.tiles.forEach(function(image) {
         display.draw(ctx);
     };
 });
+
+$(document).ready(function() {
+    $('#volume').on('click', function() {
+        if (howl == null) {
+            music();
+            $('#music').show();
+            $('#mute').hide();
+        } else {
+            howl.stop();
+            howl = null;
+            $('#music').hide();
+            $('#mute').show();
+        }
+    });
+});

@@ -150,3 +150,14 @@ body {
 .alignment-Sociopath, .alignment-Evil, .alignment-Dishonorable {
     color: red;
 }
+
+#volume {
+    position: absolute;
+    right: 5px;
+    bottom: 15px;
+    cursor: pointer;
+}
+
+#mute {
+    display: none;
+}
