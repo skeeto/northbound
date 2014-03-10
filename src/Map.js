@@ -31,6 +31,19 @@ Map.select = function(value) {
     }
 };
 
+Map.bselect = function(value, y) {
+    var limit = y < 10 ? (10 - y) : 0.22;
+    if (value > limit) {
+        if (value > 0.5) {
+            return Tile.MOUNTAIN;
+        } else {
+            return Tile.TREE;
+        }
+    } else {
+        return null;
+    }
+};
+
 Map.SCALE = 25;
 Map.TREE_SCALE = 8;
 
@@ -40,10 +53,9 @@ Map.prototype.generate = function(n) {
         for (var x = 0; x < this.width; x++) {
             var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
                 tile = Map.select(tvalue),
-                limit = y < 10 ? (10 - y) : 0.22,
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
-            if (!tile.type.water && bvalue > limit) {
-                tile.obstacle = Tile.TREE;
+            if (!tile.type.water) {
+                tile.obstacle = Map.bselect(bvalue);
             }
             row.push(tile);
         }

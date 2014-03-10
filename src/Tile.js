@@ -50,5 +50,6 @@ Tile.WATER3 = Tile.get('tiles/water3.png', {solid: true, water: true});
 
 /* Obstacle types. */
 Tile.TREE = Tile.get('trees/Tree1.png', {solid: true});
+Tile.MOUNTAIN = Tile.get('mountain.png', {solid: true});
 
 Tile.SHADOW = Tile.get('shadow.png');
