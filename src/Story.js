@@ -34,7 +34,7 @@ Story.toArray = function(litOrArray) {
     } else {
         return [litOrArray];
     }
-}
+};
 
 Story.scripts = {
     newmember: function(name) {
@@ -76,8 +76,8 @@ Story.scripts = {
             game.map.advance();
         }
     },
-    play: function(name, volume) {
-        Sfx.play(name, volume);
+    play: function(name) {
+        Sfx.play(name);
     },
     gameOver: function() {
         game.end();
@@ -126,8 +126,10 @@ Story.filters = {
         Handlebars.registerHelper(filterName, function() {
             var args = Array.prototype.slice.call(arguments);
             var butLast = args.slice(0, args.length - 1);
-            if(Story.filters[filterName].apply(null, butLast)) {
+            if (Story.filters[filterName].apply(null, butLast)) {
                 return args[args.length-1].fn(this);
+            } else {
+                return null;
             }
         });
     });
@@ -168,7 +170,7 @@ Story.concat = function(arrs) {
     } else {
         return [];
     }
-}
+};
 
 Story.optionsForName = function(name) {
     return Story.concat(Story.commonOptions.filter(function(options) {
