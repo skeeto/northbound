@@ -6,7 +6,6 @@
 * snow up north?
 * endgame?
 * quest/event markers (roaming "monster" events?)
-* tile/music credits
 
 ## ideas
 * characters that respond to alignment

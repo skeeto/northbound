@@ -163,3 +163,21 @@ body {
 #mute {
     display: none;
 }
+
+#credits {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 10px;
+    color: gray;
+    text-align: right;
+}
+
+#credits p {
+    margin: 0;
+    padding: 0;
+}
+
+#credits a {
+    color: #44a;
+}
