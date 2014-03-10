@@ -83,6 +83,7 @@ Map.prototype.lurk = function() {
 };
 
 Map.prototype.isSolid = function(x, y) {
+    if (y < 0) return true;
     var tile = this.get(y)[x];
     return tile == null
         || tile.type.solid
