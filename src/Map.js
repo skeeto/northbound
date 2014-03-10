@@ -55,10 +55,15 @@ Map.SUPPLY_RATE = 0.01;
 Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
         var row = [], y = this.rows.length;
+        var road = Map.road(y, this.width),
+            lastroad = y > 0 ? this.rows[y - 1].road : road;
+        row.road = road;
+        var roadmin = Math.min(road, lastroad),
+            roadmax = Math.max(road, lastroad);
         for (var x = 0; x < this.width; x++) {
-            var road = Map.road(y, this.width);
             var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
-                tile = x === road ? new Tile(Tile.ROAD) : Map.select(tvalue, y),
+                tile = x >= roadmin && x <= roadmax
+                    ? new Tile(Tile.ROAD) : Map.select(tvalue, y),
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
             if (!tile.type.water && tile.type !== Tile.ROAD) {
                 tile.obstacle = Map.bselect(bvalue, tile, y);
