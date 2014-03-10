@@ -49,14 +49,17 @@ Display.prototype.drawMap = function (ctx) {
         var row = map.get(y),
             yy = h - (y + 1 - min) * s;
         for (var x = 0; x < map.width; x++) {
-            var xx = x * s, tile = row[x], corrupted = tile.corrupted;
-            var base = corrupted ? tile.type.corrupt : tile.type.image;
+            var xx = x * s, tile = row[x],
+                corrupted = tile.corrupted, cold = tile.cold;
+            var base = corrupted ? tile.type.corrupt :
+                    cold ? tile.type.snow : tile.type.image;
             if (base) {
                 ctx.drawImage(base, xx, yy, s, s);
             }
             var obstacle = tile.obstacle;
             if (obstacle != null) {
-                var image = corrupted ? obstacle.corrupt : obstacle.image;
+                var image = corrupted ? obstacle.corrupt :
+                        cold ? obstacle.snow : obstacle.image;
                 if (image) {
                     var overhang = (image.height - image.width) / image.width;
                     var render = (function(xx, yy, image, overhang) {
