@@ -41,6 +41,7 @@ Tile.get = function(src, props) {
 
 /* Terrain types. */
 Tile.GRASS = Tile.get('tiles/grass1.png');
+Tile.ROAD = Tile.get('tiles/road1.png');
 Tile.DIRT = Tile.get('tiles/dirt1.png');
 Tile.SAND = Tile.get('tiles/sand1.png');
 Tile.SOIL = Tile.get('tiles/soil1.png');

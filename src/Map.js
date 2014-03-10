@@ -13,6 +13,11 @@ Map.prototype.get = function(n) {
     return this.rows[n];
 };
 
+Map.road = function(y, width) {
+    var w2 = width / 2;
+    return Math.round(w2 * noise.perlin3(0.5, y / 20, 0)) + w2;
+};
+
 Map.select = function(value, y) {
     if (y < 8) value = Math.pow(value, 8 - y);
     if (value > 0.8) {
@@ -52,10 +57,11 @@ Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
         var row = [], y = this.rows.length;
         for (var x = 0; x < this.width; x++) {
+            var road = Map.road(y, this.width);
             var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
-                tile = Map.select(tvalue, y),
+                tile = x === road ? new Tile(Tile.ROAD) : Map.select(tvalue, y),
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
-            if (!tile.type.water) {
+            if (!tile.type.water && tile.type !== Tile.ROAD) {
                 tile.obstacle = Map.bselect(bvalue, tile, y);
             }
             row.push(tile);
