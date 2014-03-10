@@ -32,12 +32,14 @@ Map.select = function(value, y) {
     }
 };
 
-Map.bselect = function(value, y) {
+Map.bselect = function(value, base, y) {
     if (y < 8) value = Math.pow(value, 8 - y);
     if (value > 0.5) {
         return Tile.MOUNTAIN;
     } else if (value > 0.22) {
         return Tile.TREE;
+    } else if (value < -0.2 && base.type === Tile.GRASS) {
+        return Tile.TALLGRASS;
     } else {
         return null;
     }
@@ -54,7 +56,7 @@ Map.prototype.generate = function(n) {
                 tile = Map.select(tvalue, y),
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
             if (!tile.type.water) {
-                tile.obstacle = Map.bselect(bvalue, y);
+                tile.obstacle = Map.bselect(bvalue, tile, y);
             }
             row.push(tile);
         }
