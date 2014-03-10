@@ -116,6 +116,10 @@ Story.filters = {
         return game.player.karma >= number;
     },
 
+    maxSupplies: function(number) {
+        return game.player.supplies <= number;
+    },
+
     inCorruption: function() {
         var row = game.map.get(game.player.y);
         var tile = row[game.player.x];
@@ -238,7 +242,7 @@ Story.show = function(story, callback) {
     $options.empty();
 
     var options = (story.options || [])
-        .concat(Story.optionsForNames(story.commonOptions || []));
+        .concat(Story.optionsForNames(Story.toArray(story.commonOptions || [])));
 
     var validOptions =  options.filter(function(option) {
         return !option.filter || Story.filter(option.filter);

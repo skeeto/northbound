@@ -57,6 +57,9 @@
     I'll show you where they keep the really good stuff!"
 
     {{/hasPeople}}
+
+  scripts: [reuseable]
+
   options:
     - answer: Search for scrap (risk 10 supplies, corruption advances 5 tiles).
       result: You recover a few supplies.
@@ -90,12 +93,13 @@
     You are wrapped familiar warmth of the corruption. Desire pulses
     through your body and threatens to consume you.
 
-    You are again aware of a powerful will. You stagger as if the
-    invisible gaze had weight.
+    You are again aware of a powerful will. You stagger under the
+    weight of the invisible gaze.
 
   scripts: [[setState, corruption, 1], reuseable]
 
   commonOptions: [corruption]
+
 
 ###
 - title: Treacherous ice!
@@ -175,3 +179,25 @@
         Kelsey walks off on her own. Without any food she probably
         won't last very long out there.
       scripts: [[karma, -2], [remove, "Kelsey"]]
+
+- title: Low on supplies
+  filter: [[maxSupplies, 30]]
+  description: >-
+
+    The supply situation has become too severe to ignore.
+    {{#minParty 1}}
+    A quick glance tells you that you aren't the only one that is
+    concerned
+    {{/minParty}}
+
+  scripts: [reuseable]
+
+  options:
+    - answer: Search the nearby ground. (chance for supplies, corruption advances 5 tiles).
+      result: You recover discover all there is to discover.
+      scripts: [[supplies, "1d10"], [advance, 5]]
+
+    - answer: Draw straws. Whoever loses drops their pack and walks away. (20 supplies).
+      result: Another soul is lost to the corruption.
+      filter: [[minParty, 1]]
+      scripts: [removerandom, [supplies, 20]]
