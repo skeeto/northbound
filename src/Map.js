@@ -97,6 +97,19 @@ Map.prototype.advance = function() {
     }
 };
 
+Map.prototype.animateAdvance = function(n, callback) {
+    if (n === 0) {
+        callback();
+    } else {
+        this.advance();
+        display.draw();
+        var _this = this;
+        window.setTimeout(function() {
+            _this.animateAdvance(n - 1, callback);
+        }, 200);
+    }
+};
+
 Map.prototype.lurk = function() {
     var lurk = this.edge + 1,
         row = this.get(lurk);
