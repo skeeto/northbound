@@ -49,7 +49,17 @@ Story.scripts = {
         game.message(name + ' leaves your party.');
         Sfx.play('thwart');
     },
-    removeRandom: function() {
+    newitem: function(name) {
+        game.player.items.push(name);
+        game.message('You received a ' + name);
+    },
+    removeitem: function(name) {
+        game.player.items = game.player.items.filter(function(item) {
+            return name !== item;
+        });
+        game.message('You lost a ' + name);
+    },
+    removerandom: function() {
         Story.scripts.remove(Game.randomChoice(game.player.party));
     },
     karma: function(n) {
@@ -71,6 +81,9 @@ Story.scripts = {
     },
     setState: function(story, state) {
         game.setStoryState(story, state);
+    },
+    reuseable: function(story) {
+        story.used = false;
     }
 };
 
@@ -134,12 +147,14 @@ Story.expand = function(text) {
     });
 };
 
-Story.evalScripts = function(scripts) {
+Story.evalScripts = function(story, scripts) {
     scripts.forEach(function(script) {
         if (typeof script === "string") {
-            Story.scripts[script]();
+            Story.scripts[script](story);
         } else {
-            Story.scripts[script[0]].apply(null, script.slice(1));
+            var args = script.slice(1);
+            args.push(story);
+            Story.scripts[script[0]].apply(null, args);
         }
     });
 };
@@ -172,7 +187,7 @@ Story.show = function(story, callback) {
     $('#story .description').html('<p>' + description + '</p>');
 
     if (story.scripts) {
-        Story.evalScripts(story.scripts);
+        Story.evalScripts(story, story.scripts);
     }
 
     var $options = $('#options');
@@ -198,7 +213,7 @@ Story.show = function(story, callback) {
 Story.act = function(option, callback) {
     $('#story .description').html(Story.expand(option.result));
     if (option.scripts) {
-        Story.evalScripts(option.scripts);
+        Story.evalScripts(story, option.scripts);
     }
     $('#options').empty();
     $('#story .close').show().on('click', function() {

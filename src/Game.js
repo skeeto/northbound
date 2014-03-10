@@ -5,6 +5,7 @@ function Game() {
     this.player.step = Unit.STEP_PLAYER;
     this.player.party = [];
     this.player.supplies = 100;
+    this.player.items = [];
     this.storyState = {};
     this.units = [this.player];
     this._units = null;

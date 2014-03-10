@@ -7,7 +7,7 @@
 
     - answer: Run ahead without waiting on the others.
       result: You run shrieking towards the light. Not everyone can keep up.
-      scripts: [[removeRandom]]
+      scripts: [[removerandom]]
       filter: [[minParty, 1]]
 
     - answer: Stop and let the stillness wash over you.

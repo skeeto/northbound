@@ -89,6 +89,6 @@
     You are again aware of a powerful will. You stagger as if the
     invisible gaze had weight.
 
-  scripts: [[setState, corruption, 1]]
+  scripts: [[setState, corruption, 1], reuseable]
 
   commonOptions: [corruption]
