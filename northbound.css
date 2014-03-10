@@ -1,8 +1,13 @@
+html {
+    height: 100%;
+}
+
 body {
     font-family: sans-serif;
     background: black;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 #game {
