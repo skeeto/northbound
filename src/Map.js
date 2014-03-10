@@ -13,12 +13,15 @@ Map.prototype.get = function(n) {
     return this.rows[n];
 };
 
+Map.SCALE = 8;
+
 Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
-        var row = [];
-        for (var i = 0; i < this.width; i++) {
+        var row = [], y = this.rows.length;
+        for (var x = 0; x < this.width; x++) {
             var tile = new Tile(Tile.GRASS);
-            if (Math.random() < 0.1) {
+            var limit = y < 10 ? (10 - y) : 0.25;
+            if (noise.perlin2(x / Map.SCALE, y / Map.SCALE) > limit) {
                 tile.obstacle = Tile.TREE;
             }
             row.push(tile);

@@ -4,6 +4,7 @@ var game = null,
     $messages = null;
 
 function start() {
+    noise.seed(Math.random());
     game = new Game();
     display = new Display(game);
     $messages = $('#messages');
