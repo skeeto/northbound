@@ -2,7 +2,7 @@ function Unit(x, y, c, style) {
     this.x = x;
     this.y = y;
     this.c = c || 'X';
-    this.style = style || 'white';
+    this.style = style || {normal: 'white', cold: '#222'};
 }
 
 Unit.prototype.step = function(callback) {

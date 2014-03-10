@@ -94,12 +94,13 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.textBaseline = 'bottom';
     var _this = this;
     return units.map(function(u) {
-        var y = h - (u.y - _this.min()) * s;
+        var y = h - (u.y - _this.min()) * s,
+            cold = this.game.map.get(u.y)[u.x].cold;
         return {
             y: y,
             render: function() {
                 ctx.drawImage(Tile.SHADOW.image, u.x * s, y - s, s, s);
-                ctx.fillStyle = u.style;
+                ctx.fillStyle = cold ? u.style.cold : u.style.normal;
                 ctx.fillText(u.c, u.x * s, y);
             }
         };

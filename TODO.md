@@ -3,7 +3,6 @@
 * intro message/help
 * show party
 * special items
-* snow up north?
 * endgame?
 * quest/event markers (roaming "monster" events?)
 
