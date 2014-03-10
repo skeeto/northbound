@@ -46,7 +46,7 @@ function music() {
         urls: song,
         autoplay: true,
         loop: false,
-        volume: 0.25,
+        volume: 0.4,
         onend: music
     });
 }
