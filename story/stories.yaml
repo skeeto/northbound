@@ -58,8 +58,6 @@
 
     {{/hasPeople}}
 
-  scripts: [reuseable]
-
   options:
     - answer: Search for scrap (risk 10 supplies, corruption advances 5 tiles).
       result: You recover a few supplies.
@@ -99,7 +97,6 @@
   scripts: [[setState, corruption, 1], reuseable]
 
   commonOptions: [corruption]
-
 
 ###
 - title: Treacherous ice!
@@ -180,17 +177,16 @@
         won't last very long out there.
       scripts: [[karma, -2], [remove, "Kelsey"]]
 
+###
 - title: Low on supplies
   filter: [[maxSupplies, 30]]
   description: >-
 
-    The supply situation has become too severe to ignore.
+    The dwindling supplies have you on edge.
     {{#minParty 1}}
     A quick glance tells you that you aren't the only one that is
     concerned
     {{/minParty}}
-
-  scripts: [reuseable]
 
   options:
     - answer: Search the nearby ground. (chance for supplies, corruption advances 5 tiles).
@@ -201,3 +197,6 @@
       result: Another soul is lost to the corruption.
       filter: [[minParty, 1]]
       scripts: [removerandom, [supplies, 20]]
+
+    - answer: "Continue ignoring it. {{#minParty 1}}You're not the only one who can deal with hunger.{{/minParty}}"
+      result: You struggle forward ignoring the protests from your body.
