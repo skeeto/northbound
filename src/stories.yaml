@@ -15,8 +15,8 @@
     - answer: Kill the man and take anything valuable.
       result: >-
         You easily kill the man, who puts up no fight. There are a few
-        coins on his body.
-      scripts: [[karma, -10], [gold, 5], [play, thwart]]
+        usable items on his body.
+      scripts: [[karma, -10], [supplies, 5], [play, thwart]]
 
 - title: Old Ralph collapses.
   filter: [[hasPeople, "Old Ralph"]]

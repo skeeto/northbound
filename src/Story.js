@@ -17,7 +17,7 @@ Story.toNumber = function(litOrDice) {
             // handle negative dice throws
             return -RNG.roller(litOrDice.substring(1), RNG.$)();
         } else {
-            return RNG.roller(litOrDice.substring(1), RNG.$)();
+            return RNG.roller(litOrDice, RNG.$)();
         }
     } else {
         return litOrDice;
@@ -44,9 +44,6 @@ Story.scripts = {
         });
         game.message(name + ' leaves your party.');
         Sfx.play('thwart');
-    },
-    gold: function(n) {
-        game.player.gold += Story.toNumber(n);
     },
     karma: function(n) {
         game.player.karma += Story.toNumber(n);
