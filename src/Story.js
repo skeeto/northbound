@@ -49,6 +49,9 @@ Story.scripts = {
         game.message(name + ' leaves your party.');
         Sfx.play('thwart');
     },
+    message: function(message, clazz) {
+        game.message(message, clazz);
+    },
     newitem: function(name) {
         game.player.items.push(name);
         game.message('You received a ' + name);
