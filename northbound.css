@@ -44,7 +44,7 @@ body {
     left: 50px;
     background: #fda;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px #111;
+    box-shadow: 0px 0px 50px black;
     border: 1px solid #007;
 }
 
@@ -83,4 +83,33 @@ body {
     padding-right: 5px;
     font-weight: bold;
     color: #ff7;
+}
+
+#gameover {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 600px;
+    background: black;
+    color: #ddd;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 50px #000;
+}
+
+#gameover h1 {
+    margin: 10px 0 10px 0;
+    color: #eee;
+    font-size: 50px;
+}
+
+#gameover h2 {
+    margin: 0 0 0 0;
+    font-size: 28px;
+}
+
+#gameover .distance {
+    font-weight: bold;
+    color: yellow;
 }

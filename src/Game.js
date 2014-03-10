@@ -28,6 +28,11 @@ Game.prototype.inCorruption = function() {
 };
 
 Game.prototype.step = function(callback) {
+    if (game.isDone()) {
+        game.showEnd();
+        return;
+    }
+
     this.count++;
     var storytime = false;
     if (Math.random() < 1 / Game.STORY_RATE) {
@@ -50,6 +55,15 @@ Game.prototype.step = function(callback) {
         var inCorruption = this.inCorruption();
         this.player.supplies
             -= this.player.party.length * inCorruption ? 3 : 0.2;
+        if (this.player.supplies < 0) {
+            this.player.supplies = 0;
+            if (Math.random() > 0.25) {
+                var party = this.game.player.party.shuffle();
+                if (party.length === 0) {
+                    this.end();
+                }
+            }
+        }
 
     }
 };
@@ -79,4 +93,22 @@ Game.prototype.message = function(message, clazz) {
         clazz: clazz,
         count: this.count
     });
+};
+
+/** @returns {number} distance player has traveled in miles */
+Game.prototype.distance = function() {
+    return this.player.y * 30 / 5280;
+};
+
+Game.prototype.end = function() {
+    this.gameOver = true;
+};
+
+Game.prototype.showEnd = function() {
+    if (!this.endShown) {
+        this.endShown = true;
+        Sfx.play('gameover');
+        $('#gameover .distance').text(this.distance().toFixed(2));
+        $('#gameover').show();
+    }
 };

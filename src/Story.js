@@ -63,7 +63,7 @@ Story.scripts = {
         Sfx.play(name, volume);
     },
     gameOver: function() {
-        game.gameOver = true;
+        game.end();
     }
 };
 

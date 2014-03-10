@@ -15,9 +15,7 @@ function start() {
     game.message('Escape northward!');
 
     function step() {
-        if (!game.isDone()) {
-            game.step(step);
-        }
+        game.step(step);
     }
     game.step(step);
 }
