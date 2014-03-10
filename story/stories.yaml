@@ -185,7 +185,7 @@
     The dwindling supplies have you on edge.
     {{#minParty 1}}
     A quick glance tells you that you aren't the only one that is
-    concerned
+    concerned.
     {{/minParty}}
 
   options:
