@@ -5,6 +5,7 @@ function Game() {
     this.player.step = Unit.STEP_PLAYER;
     this.player.party = [];
     this.player.supplies = 100;
+    this.storyState = {};
     this.units = [this.player];
     this._units = null;
     this.messages = [];
@@ -19,6 +20,14 @@ Game.randomIndex = function(arr) {
 
 Game.randomChoice = function(arr) {
     return arr[Game.randomIndex(arr)];
+};
+
+Game.prototype.setStoryState = function(story, state) {
+    this.storyState[story] = state;
+};
+
+Game.prototype.getStoryState = function(story) {
+    return this.storyState[story] || false;
 };
 
 Game.prototype.step = function(callback) {

@@ -7,6 +7,10 @@ Story.load = function() {
     $.get('src/stories.yaml', function(data) {
         Story.stories = jsyaml.load(data);
     });
+
+    $.get('src/commonOptions.yaml', function(data) {
+        Story.commonOptions = jsyaml.load(data);
+    });
 };
 
 Story.load();
@@ -64,6 +68,9 @@ Story.scripts = {
     },
     gameOver: function() {
         game.gameOver = true;
+    },
+    setState: function(story, state) {
+        game.setStoryState(story, state);
     }
 };
 
@@ -86,6 +93,14 @@ Story.filters = {
         var row = game.map.get(game.player.y);
         var tile = row[game.player.x];
         return tile.corrupted;
+    },
+
+    inState: function(story, state) {
+        return game.getStoryState(story) == state;
+    },
+
+    atLeastState: function(story, state) {
+        return game.getStoryState(story) >= state;
     }
 };
 
@@ -104,7 +119,11 @@ Story.filters = {
 
 Story.filter = function(activeFilters) {
     return activeFilters.every(function(filterSpec) {
-        return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
+        if (typeof filterSpec == "string") {
+            return Story.filters[filterSpec]();
+        } else {
+            return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
+        }
     });
 };
 
@@ -115,15 +134,54 @@ Story.expand = function(text) {
     });
 };
 
+Story.evalScripts = function(scripts) {
+    scripts.forEach(function(script) {
+        if (typeof script === "string") {
+            Story.scripts[script]();
+        } else {
+            Story.scripts[script[0]].apply(null, script.slice(1));
+        }
+    });
+};
+
+Story.concat = function(arrs) {
+    if(arrs.length > 0) {
+        return arrs[0].concat.apply(arrs[0], arrs.slice(1, -1));
+    } else {
+        return [];
+    }
+}
+
+Story.optionsForName = function(name) {
+    return Story.concat(Story.commonOptions.filter(function(options) {
+        return options.name == name;
+    }).map(function(options) {
+        return options.options;
+    }));
+};
+
+Story.optionsForNames = function(names) {
+    return Story.concat(names.map(Story.optionsForName));
+};
+
 Story.show = function(story, callback) {
     Sfx.play('story');
     var title = Story.expand(story.title),
         description = Story.expand(story.description.replace(/\n/g, '</p><p>'));
     $('#story .title').html(title);
     $('#story .description').html('<p>' + description + '</p>');
+
+    if (story.scripts) {
+        Story.evalScripts(story.scripts);
+    }
+
     var $options = $('#options');
     $options.empty();
-    story.options.filter(function(option) {
+
+    var options = (story.options || [])
+        .concat(Story.optionsForNames(story.commonOptions || []));
+
+    options.filter(function(option) {
         return !option.filter || Story.filter(option.filter);
     }).forEach(function(option) {
         var $option = $('<li/>').addClass('option');
@@ -140,13 +198,7 @@ Story.show = function(story, callback) {
 Story.act = function(option, callback) {
     $('#story .description').html(Story.expand(option.result));
     if (option.scripts) {
-        option.scripts.forEach(function(script) {
-            if (typeof script === "string") {
-                Story.scripts[script]();
-            } else {
-                Story.scripts[script[0]].apply(null, script.slice(1));
-            }
-        });
+        Story.evalScripts(option.scripts);
     }
     $('#options').empty();
     $('#story .close').show().on('click', function() {
