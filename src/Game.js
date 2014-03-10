@@ -48,6 +48,7 @@ Game.prototype.step = function(callback) {
         game.showEnd();
         return;
     }
+    this.player.party.shuffle();
 
     this.count++;
     var storytime = false;
@@ -149,15 +150,15 @@ Game.prototype.alignment = function() {
     var value = this.player.karma;
     if (value > 100) {
         return 'Angelic';
-    } else if (value > 50) {
+    } else if (value >= 50) {
         return 'Good';
-    } else if (value > 10) {
+    } else if (value >= 10) {
         return 'Honorable';
-    } else if (value < -100) {
+    } else if (value <= -100) {
         return 'Sociopath';
-    } else if (value < -50) {
+    } else if (value <= -50) {
         return 'Evil';
-    } else if (value < -10) {
+    } else if (value <= -10) {
         return 'Dishonorable';
     } else {
         return 'Neutral';
