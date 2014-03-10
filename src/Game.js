@@ -65,7 +65,7 @@ Game.prototype.step = function(callback) {
             -= this.player.party.length * inCorruption ? 3 : 0.2;
         if (this.player.supplies < 0) {
             this.player.supplies = 0;
-            if (Math.random() > 0.25) {
+            if (Math.random() < 0.25) {
                 var party = this.player.party.shuffle();
                 if (party.length === 0) {
                     this.message('You have starved to death!', 'danger');
