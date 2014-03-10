@@ -19,7 +19,7 @@
       scripts: [[karma, -10], [gold, 5], [play, thwart]]
 
 - title: Old Ralph collapses.
-  filter: [[hasPeople, ["Old Ralph"]]]
+  filter: [[hasPeople, "Old Ralph"]]
   description: >-
     You hear the dust stir behind you as Old Ralph collapses from
     exhaustion for the third time. He's struggling to keep pace. The
@@ -43,3 +43,26 @@
         blade across his throat. Though it feels as if an hour has
         passed, less than a minute later he is dead.
       scripts: [[karma, -6], [remove, "Old Ralph"]]
+
+- title: A door into the earth
+  description: >-
+    A glint of metal catches your eye despite the accumulation of
+    debris. You brush away dust to reveal a door leading into the
+    earth.
+    {{#hasPeople "Old Ralph"}}
+
+    Old Ralph exclaims, "Jackpot, an old distillery! Follow me and
+    I'll show you where they keep the really good stuff!"
+
+    {{/hasPeople}}
+  options:
+    - answer: Search for scrap (risk 10 supplies, corruption advances 5 tiles).
+      result: You recover a few supplies.
+      scripts: [[supplies, -10], [advance, 5], [supplies, "2d10"]]
+    - answer: Follow Old Ralph (gain 30 supplies, corruption advances 2 tiles).
+      result: You leave with bags will filled and even a little hope.
+      scripts: [[supplies, 30], [advance, 2]]
+      filter: [[hasPeople, "Old Ralph"]]
+    - answer: Ignore the door
+      result: You press on, ignoring the distraction.
+      scripts: [[play, thwart]]

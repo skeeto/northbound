@@ -11,6 +11,27 @@ Story.load = function() {
 
 Story.load();
 
+Story.toNumber = function(litOrDice) {
+    if (typeof litOrDice == "string") {
+        if(litOrDice.substring(0, 1) == '-') {
+            // handle negative dice throws
+            return -RNG.roller(litOrDice.substring(1), RNG.$)();
+        } else {
+            return RNG.roller(litOrDice.substring(1), RNG.$)();
+        }
+    } else {
+        return litOrDice;
+    }
+};
+
+Story.toArray = function(litOrArray) {
+    if (typeof litOrArray == "array") {
+        return litOrArray;
+    } else {
+        return [litOrArray];
+    }
+}
+
 Story.scripts = {
     newmember: function(name) {
         game.player.party.push(name);
@@ -25,13 +46,13 @@ Story.scripts = {
         Sfx.play('thwart');
     },
     gold: function(n) {
-        game.player.gold += n;
+        game.player.gold += Story.toNumber(n);
     },
     karma: function(n) {
-        game.player.karma += n;
+        game.player.karma += Story.toNumber(n);
     },
     supplies: function(n) {
-        game.player.supplies += n;
+        game.player.supplies += Story.toNumber(n);
     },
     advance: function(n) {
         for (var i = 0; i < n; i++) {
@@ -45,7 +66,7 @@ Story.scripts = {
 
 Story.filters = {
     hasPeople: function(people) {
-        return people.every(function(person) {
+        return Story.toArray(people).every(function(person) {
             return game.player.party.indexOf(person) >= 0;
         });
     },
@@ -55,6 +76,19 @@ Story.filters = {
     }
 };
 
+// register filters as Handlebars helpers
+(function() {
+    Object.keys(Story.filters).forEach(function(filterName) {
+        Handlebars.registerHelper(filterName, function() {
+            var args = Array.prototype.slice.call(arguments);
+            var butLast = args.slice(0, args.length - 1);
+            if(Story.filters[filterName].apply(null, butLast)) {
+                return args[args.length-1].fn(this);
+            }
+        });
+    });
+})();
+
 Story.filter = function(activeFilters) {
     return activeFilters.every(function(filterSpec) {
         return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
@@ -63,7 +97,8 @@ Story.filter = function(activeFilters) {
 
 Story.expand = function(text) {
     return Handlebars.compile(text)({
-        game: game
+        game: game,
+        filters: Story.filters
     });
 };
 
@@ -75,7 +110,9 @@ Story.show = function(story, callback) {
     $('#story .description').html('<p>' + description + '</p>');
     var $options = $('#options');
     $options.empty();
-    story.options.forEach(function(option) {
+    story.options.filter(function(option) {
+        return !option.filter || Story.filter(option.filter);
+    }).forEach(function(option) {
         var $option = $('<li/>').addClass('option');
         $option.html(Story.expand(option.answer));
         $options.append($option);
