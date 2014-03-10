@@ -6,8 +6,6 @@
 * snow up north?
 * endgame?
 * quest/event markers (roaming "monster" events?)
-* remember volume setting (muted/unmuted)
-* keyboard controls on events/story
 * tile/music credits
 
 ## ideas

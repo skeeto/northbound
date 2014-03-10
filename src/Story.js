@@ -201,9 +201,10 @@ Story.show = function(story, callback) {
     var options = (story.options || [])
         .concat(Story.optionsForNames(story.commonOptions || []));
 
-    options.filter(function(option) {
+    var validOptions =  options.filter(function(option) {
         return !option.filter || Story.filter(option.filter);
-    }).forEach(function(option) {
+    });
+    validOptions.forEach(function(option) {
         var $option = $('<li/>').addClass('option');
         $option.html(Story.expand(option.answer));
         $options.append($option);
@@ -211,22 +212,29 @@ Story.show = function(story, callback) {
             Story.act(option, callback);
         });
     });
+    Story.register(validOptions, callback);
     $('#story .close').hide();
     $('#story').show();
 };
 
 Story.act = function(option, callback) {
+    Story.unregister();
     $('#story .description').html(Story.expand(option.result));
     if (option.scripts) {
         Story.evalScripts(story, option.scripts);
     }
     $('#options').empty();
-    $('#story .close').show().on('click', function() {
+    function close(event) {
+        $(document).off('keypress.close');
         $('#story .close').hide().off('click');
         $('#story').hide();
         if (callback != null) {
             callback();
         }
+    }
+    $('#story .close').show().on('click', close);
+    $(document).on('keypress.close', function(event) {
+        if (event.keyCode === 13) close();
     });
 };
 
@@ -237,4 +245,18 @@ Story.select = function(game) {
     return Story.stories.filter(function(story) {
         return !story.used && (!story.filter || Story.filter(story.filter));
     });
+};
+
+Story.register = function(options, callback) {
+    $(document).on('keypress.options', function(event) {
+        var id = event.keyCode - '1'.charCodeAt(0),
+            option = options[id];
+        if (option != null) {
+            Story.act(option, callback);
+        }
+    });
+};
+
+Story.unregister = function() {
+    $(document).off('keypress.options');
 };
