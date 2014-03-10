@@ -5,6 +5,8 @@ function Game() {
     this.player.step = Unit.STEP_PLAYER;
     this.player.party = [];
     this.player.supplies = 100;
+    this.player.items = [];
+    this.storyState = {};
     this.units = [this.player];
     this._units = null;
     this.messages = [];
@@ -25,6 +27,14 @@ Game.prototype.inCorruption = function() {
     var row = this.map.get(this.player.y);
     var tile = row[this.player.x];
     return tile.corrupted;
+};
+
+Game.prototype.setStoryState = function(story, state) {
+    this.storyState[story] = state;
+};
+
+Game.prototype.getStoryState = function(story) {
+    return this.storyState[story] || false;
 };
 
 Game.prototype.step = function(callback) {
@@ -58,9 +68,13 @@ Game.prototype.step = function(callback) {
         if (this.player.supplies < 0) {
             this.player.supplies = 0;
             if (Math.random() > 0.25) {
-                var party = this.game.player.party.shuffle();
+                var party = this.player.party.shuffle();
                 if (party.length === 0) {
+                    this.message('You have starved to death!');
                     this.end();
+                } else {
+                    var dead = party.pop();
+                    this.message(dead + ' has starved to death!');
                 }
             }
         }
@@ -111,4 +125,5 @@ Game.prototype.showEnd = function() {
         $('#gameover .distance').text(this.distance().toFixed(2));
         $('#gameover').show();
     }
+    display.draw(ctx);
 };

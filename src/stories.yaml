@@ -71,7 +71,7 @@
 
 ###
 - title: Into the darkness
-  filter: [[inCorruption]]
+  filter: [inCorruption]
   description: >-
     The stillness of the corruption invades your mind. Its silent
     warmth beckons you to join it to yourself.
@@ -79,20 +79,19 @@
     Shuddering, you realize that you are both surrounded by the
     corruption and a powerful will.
 
-  options:
-    - answer: Drop your pack and push towards the light ahead (-20 supplies).
-      result: You refuse to give in to your growing dread.
-      scripts: [[supplies, -20]]
-      filter: [[minSupplies, 20]]
+  scripts: [[setState, corruption, 1]]
 
-    - answer: Run ahead without waiting on the others.
-      result: You run shrieking towards the light. Not everyone can keep up.
-      scripts: [[removeRandom]]
-      filter: [[minParty, 1]]
+  commonOptions: [corruption]
 
-    - answer: Stop and let the stillness wash over you.
-      result: >-
-        All sound is gone. All fear is gone. All hope. Gone. You have
-        finally found a sort of peace. The darkness has a warmth of
-        its own.
-      scripts: [[gameOver]]
+- title: Back into the darkness
+  filter: [inCorruption, [atLeastState, corruption, 1]]
+  description: >-
+    You are wrapped familiar warmth of the corruption. Desire pulses
+    through your body and threatens to consume you.
+
+    You are again aware of a powerful will. You stagger as if the
+    invisible gaze had weight.
+
+  scripts: [[setState, corruption, 1], reuseable]
+
+  commonOptions: [corruption]

@@ -1,0 +1,18 @@
+- name: corruption
+  options:
+    - answer: Drop your pack and push towards the light ahead (-20 supplies).
+      result: You refuse to give in to your growing dread.
+      scripts: [[supplies, -20]]
+      filter: [[minSupplies, 20]]
+
+    - answer: Run ahead without waiting on the others.
+      result: You run shrieking towards the light. Not everyone can keep up.
+      scripts: [[removerandom]]
+      filter: [[minParty, 1]]
+
+    - answer: Stop and let the stillness wash over you.
+      result: >-
+        All sound is gone. All fear is gone. All hope. Gone. You have
+        finally found a sort of peace. The darkness has a warmth of its
+        own.
+      scripts: [gameOver]
