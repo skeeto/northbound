@@ -14,7 +14,13 @@ Map.prototype.get = function(n) {
 };
 
 Map.select = function(value) {
-    if (value > -0.4) {
+    if (value > 0.8) {
+        return new Tile(Tile.WATER3);
+    } else if (value > 0.75) {
+        return new Tile(Tile.WATER2);
+    } else if (value > 0.7) {
+        return new Tile(Tile.WATER1);
+    } else if (value > -0.4) {
         return new Tile(Tile.GRASS);
     } else if (value > -0.6) {
         return new Tile(Tile.SOIL);
@@ -32,10 +38,11 @@ Map.prototype.generate = function(n) {
     while (this.rows.length < n + 1) {
         var row = [], y = this.rows.length;
         for (var x = 0; x < this.width; x++) {
-            var value = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
-                tile = Map.select(value),
-                limit = y < 10 ? (10 - y) : 0.22;
-            if (noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE) > limit) {
+            var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
+                tile = Map.select(tvalue),
+                limit = y < 10 ? (10 - y) : 0.22,
+                bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
+            if (!tile.type.water && bvalue > limit) {
                 tile.obstacle = Tile.TREE;
             }
             row.push(tile);
@@ -64,5 +71,7 @@ Map.prototype.lurk = function() {
 
 Map.prototype.isSolid = function(x, y) {
     var tile = this.get(y)[x];
-    return tile == null || tile.obstacle != null && tile.obstacle.solid;
+    return tile == null
+        || tile.type.solid
+        || tile.obstacle != null && tile.obstacle.solid;
 };

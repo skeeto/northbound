@@ -39,14 +39,16 @@ Tile.get = function(src, props) {
     return tile;
 };
 
+/* Terrain types. */
 Tile.GRASS = Tile.get('tiles/grass1.png');
 Tile.DIRT = Tile.get('tiles/dirt1.png');
 Tile.SAND = Tile.get('tiles/sand1.png');
 Tile.SOIL = Tile.get('tiles/soil1.png');
-Tile.WATER1 = Tile.get('tiles/water1.png');
-Tile.WATER2 = Tile.get('tiles/water2.png');
-Tile.WATER3 = Tile.get('tiles/water3.png');
+Tile.WATER1 = Tile.get('tiles/water1.png', {solid: false, water: true});
+Tile.WATER2 = Tile.get('tiles/water2.png', {solid: true, water: true});
+Tile.WATER3 = Tile.get('tiles/water3.png', {solid: true, water: true});
 
+/* Obstacle types. */
 Tile.TREE = Tile.get('trees/Tree1.png', {solid: true});
 
 Tile.SHADOW = Tile.get('shadow.png');
