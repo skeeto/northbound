@@ -10,7 +10,6 @@ Unit.prototype.step = function(callback) {
 };
 
 Unit.prototype.karma = 0;
-Unit.prototype.gold = 0;
 
 Unit.STEP_PLAYER = function(callback) {
     var unit = this;
