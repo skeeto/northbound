@@ -155,8 +155,8 @@ body {
 
 #volume {
     position: absolute;
-    right: 5px;
-    bottom: 15px;
+    left: 5px;
+    top: 5px;
     cursor: pointer;
 }
 
