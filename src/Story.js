@@ -4,11 +4,11 @@ function Story() {
 Story.stories = null;
 
 Story.load = function() {
-    $.get('src/stories.yaml', function(data) {
+    $.get('story/stories.yaml', function(data) {
         Story.stories = jsyaml.load(data);
     });
 
-    $.get('src/commonOptions.yaml', function(data) {
+    $.get('story/commonOptions.yaml', function(data) {
         Story.commonOptions = jsyaml.load(data);
     });
 };
