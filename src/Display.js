@@ -24,6 +24,10 @@ Display.prototype.fixup = function(ctx) {
     canvas.height = $parent.height();
 };
 
+Display.prototype.min = function() {
+    return Math.min(this.game.map.edge, this.game.player.y);
+};
+
 Display.prototype.drawMap = function (ctx) {
     var w = ctx.canvas.width,
         h = ctx.canvas.height,
@@ -33,9 +37,10 @@ Display.prototype.drawMap = function (ctx) {
     ctx.strokeStyle = 'gray';
 
     var sprites = [];
-    for (var y = map.edge + ht - 1; y >= map.edge; y--) {
+    var min = this.min();
+    for (var y = min + ht - 1; y >= min; y--) {
         var row = map.get(y),
-            yy = h - (y + 1 - map.edge) * s;
+            yy = h - (y + 1 - min) * s;
         for (var x = 0; x < map.width; x++) {
             var xx = x * s, tile = row[x], corrupted = tile.corrupted;
             var base = corrupted ? tile.type.corrupt : tile.type.image;
@@ -77,8 +82,9 @@ Display.prototype.drawUnits = function(ctx) {
     ctx.font = Math.floor(s) + 'px sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'bottom';
+    var _this = this;
     return units.map(function(u) {
-        var y = h - (u.y - map.edge) * s;
+        var y = h - (u.y - _this.min()) * s;
         return {
             y: y,
             render: function() {
