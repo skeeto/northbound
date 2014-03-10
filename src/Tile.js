@@ -50,6 +50,12 @@ Tile.get = function(src, props) {
                     c[3]
                 ];
             });
+        } else if (props.water) {
+            tile.snow = Tile.filter(image, function(c) {
+                var tint = 64;
+                var ave = (c[0] + c[1] + c[2]) / 1.25;
+                return [ave - tint, ave - tint, ave + tint, c[3]];
+            });
         } else {
             tile.snow = Tile.filter(image, function(c) {
                 var ave = (c[0] + c[1] + c[2]) / 1.25;
