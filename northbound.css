@@ -29,11 +29,13 @@ body {
     color: white;
     top: 0px;
     left: 0px;
-    padding-top: 5px;
-    padding-left: 10px;
+    margin: 0;
+    padding: 0px 3px 0px 3px;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .message {
+    margin: 0;
     display: block;
     padding: 1px 0 1px 0;
 }
