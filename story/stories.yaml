@@ -129,7 +129,7 @@
     injury to yourself in the process.
   options:
     - answer: Helping the woman is too dangerous. Move on.
-      result: You move along. Perhaps she'll be alright on her own.
+      result: "You move along. Perhaps she'll be alright on her own."
     - answer: Attempt to frighten away the bear.
       filter: [[maxParty, 0]]
       result: >-
