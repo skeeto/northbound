@@ -21,6 +21,12 @@ Game.randomChoice = function(arr) {
     return arr[Game.randomIndex(arr)];
 };
 
+Game.prototype.inCorruption = function() {
+    var row = this.map.get(this.player.y);
+    var tile = row[this.player.x];
+    return tile.corrupted;
+};
+
 Game.prototype.step = function(callback) {
     this.count++;
     var storytime = false;
@@ -41,6 +47,10 @@ Game.prototype.step = function(callback) {
         this.map.lurk();
         this._units = this.units.slice(0);
         this._step(callback);
+        var inCorruption = this.inCorruption();
+        this.player.supplies
+            -= this.player.party.length * inCorruption ? 3 : 0.2;
+
     }
 };
 
