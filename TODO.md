@@ -5,8 +5,8 @@
 * special items
 * endgame?
 * quest/event markers (roaming "monster" events?)
+* ambient sound?
+* draw between multiple advances
 
 ## ideas
-* characters that respond to alignment
-* events depending on day/night (above)
 * journal detailing the whole story?
