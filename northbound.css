@@ -30,6 +30,13 @@ body {
 
 .message {
     display: block;
+    padding: 1px 0 1px 0;
+}
+
+.danger {
+    color: #f33;
+    background: #111;
+    font-weight: bold;
 }
 
 #story {

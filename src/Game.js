@@ -70,11 +70,11 @@ Game.prototype.step = function(callback) {
             if (Math.random() > 0.25) {
                 var party = this.player.party.shuffle();
                 if (party.length === 0) {
-                    this.message('You have starved to death!');
+                    this.message('You have starved to death!', 'danger');
                     this.end();
                 } else {
                     var dead = party.pop();
-                    this.message(dead + ' has starved to death!');
+                    this.message(dead + ' has starved to death!', 'danger');
                 }
             }
         }
