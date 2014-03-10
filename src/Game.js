@@ -1,7 +1,13 @@
 function Game() {
     this.map = new Map();
     this.count = 0;
-    this.player = new Unit(this.map.width / 2, this.map.edge + 4, '@');
+    var y = this.map.edge + 4,
+        row = this.map.get(y),
+        x = null;
+    for (x = 0; x < row.length; x++) {
+        if (row[x].type === Tile.ROAD) break;
+    }
+    this.player = new Unit(x, y, '@');
     this.player.step = Unit.STEP_PLAYER;
     this.player.party = [];
     this.player.supplies = 100;

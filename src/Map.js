@@ -19,7 +19,6 @@ Map.road = function(y, width) {
 };
 
 Map.select = function(value, y) {
-    if (y < 8) value = Math.pow(value, 8 - y);
     if (value > 0.8) {
         return new Tile(Tile.WATER3);
     } else if (value > 0.75) {
@@ -38,7 +37,6 @@ Map.select = function(value, y) {
 };
 
 Map.bselect = function(value, base, y) {
-    if (y < 8) value = Math.pow(value, 8 - y);
     if (value > 0.5) {
         return Tile.MOUNTAIN;
     } else if (value > 0.22) {
