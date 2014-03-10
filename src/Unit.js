@@ -58,6 +58,10 @@ Unit.STEP_PLAYER = function(callback) {
             case 34:
                 dx = 1; dy = 1;
                 break;
+            case 190: // .
+            case 12:
+                dx = 0; dy = 0;
+                break;
             }
         if (dx != null && dy != null) {
             var xx = unit.x + dx, yy = unit.y - dy;
