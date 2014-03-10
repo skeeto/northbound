@@ -91,15 +91,23 @@ body {
     font-size: 20px;
 }
 
-#supplies {
+#status {
     position: absolute;
-    color: white;
     right: 0px;
     top: 0px;
     padding-top: 5px;
     padding-right: 5px;
-    font-weight: bold;
+    color: white;
+    text-align: right;
+}
+
+#supplies {
     color: #ff7;
+    font-weight: bold;
+}
+
+#alignment {
+    font-weight: bold;
 }
 
 #gameover {
@@ -129,4 +137,16 @@ body {
 #gameover .distance {
     font-weight: bold;
     color: yellow;
+}
+
+.alignment-Angelic, .alignment-Good, .alignment-Honorable {
+    color: #0f0;
+}
+
+.alignment-Neutral {
+    color: white;
+}
+
+.alignment-Sociopath, .alignment-Evil, .alignment-Dishonorable {
+    color: red;
 }

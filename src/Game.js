@@ -138,3 +138,22 @@ Game.prototype.showEnd = function() {
     }
     display.draw(ctx);
 };
+
+Game.prototype.alignment = function() {
+    var value = this.player.karma;
+    if (value > 100) {
+        return 'Angelic';
+    } else if (value > 50) {
+        return 'Good';
+    } else if (value > 10) {
+        return 'Honorable';
+    } else if (value < -100) {
+        return 'Sociopath';
+    } else if (value < -50) {
+        return 'Evil';
+    } else if (value < -10) {
+        return 'Dishonorable';
+    } else {
+        return 'Neutral';
+    }
+};

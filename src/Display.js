@@ -123,4 +123,8 @@ Display.prototype.drawMessages = function() {
 
 Display.prototype.drawHUD = function() {
     $('#supplies').text(Math.floor(this.game.player.supplies) + ' supplies');
+    $('#alignment')
+        .text(game.alignment())
+        .removeClass()
+        .addClass('alignment-' + game.alignment());
 };
