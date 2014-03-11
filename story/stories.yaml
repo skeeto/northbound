@@ -107,7 +107,7 @@
     Frozen in place, {{game.player.party.[0]}} looks at you as if
     asking you what should be done.
 
-    {{game.player.party.[1]}} says, "Perhaps we should leaves some of
+    {{game.player.party.[1]}} says, "Perhaps we should leave some of
     this stuff behind to lighten load on the ice."
   options:
     - answer: Leave behind some supplies before moving further. (-10 supplies)
