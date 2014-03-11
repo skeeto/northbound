@@ -160,6 +160,10 @@ Story.filters = {
 
     atLeastState: function(story, state) {
         return game.getStoryState(story) >= state;
+    },
+
+    not: function(filterSpec) {
+        return !Story.singleFilter(filterSpec);
     }
 };
 
@@ -178,14 +182,16 @@ Story.filters = {
     });
 })();
 
+Story.singleFilter = function(filterSpec) {
+    if (typeof filterSpec == "string") {
+        return Story.filters[filterSpec]();
+    } else {
+        return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
+    }
+};
+
 Story.filter = function(activeFilters) {
-    return activeFilters.every(function(filterSpec) {
-        if (typeof filterSpec == "string") {
-            return Story.filters[filterSpec]();
-        } else {
-            return Story.filters[filterSpec[0]].apply(null, filterSpec.slice(1));
-        }
-    });
+    return activeFilters.every(Story.singleFilter);
 };
 
 Story.expand = function(text) {

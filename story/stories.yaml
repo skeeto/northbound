@@ -200,3 +200,98 @@
 
     - answer: "Continue ignoring it. {{#minParty 1}}You're not the only one who can deal with hunger.{{/minParty}}"
       result: You struggle forward ignoring the protests from your body.
+
+###
+- title: A voice in the darkness
+  filter: [inCorruption, [hasPeople, "Kelsey"], [atLeastState, corruption, 1]]
+  description: >-
+
+    You are embraced by the silent warmth of the corruption. A wrong
+    sweetness like past-ripe fruit fills the air.
+
+    "I hear him..." whispers Kelsey.
+
+    "Who?" you whisper, barely suppressing a wheeze as the sweetness
+    continues to invade your throat.
+
+    "A being. A man, I think. That voice is familiar...."
+
+    Her body stiffens
+
+  scripts: [[setState, corruptionVoice, 1]]
+
+  options:
+    - answer: "She's distracted. Leave Kelsey behind so she and her friend can get acquanted."
+      scripts: [[remove "Kelsey"], [karma, -3]]
+      result: "Kelsey's mutterings fade away as you force your body to move towards the light"
+    - answer: "She can't escape on her own. Drop your supplies so that you can pull her to safety."
+      scripts: [[supplies, -30]]
+      result: "Gagging as you ingest the sickening air, you somehow drag Kelsey beyond the corrupting influence."
+
+###
+- title: A voice like thunder
+  filter: [inCorruption, [hasPeople, "Kelsey"], [atLeastState, corruptionVoice, 1]]
+  description: >-
+    Kelsey lurches under an invisible blow and falls to the ground
+    with her hands at her ears.
+
+    She whimpers, "I have no more to give! Why?"
+
+    The warm, sickening sweetness of the corruption washes over
+    you. The corruption does not seem pleased with her response.
+
+    Kelsey sobs, "There's nothing left! I ..."
+
+    She's interrupted by her own shreaks which seem to pulse with the
+    waves of heat that surround you.
+
+    Kelsey, still on the ground, grows still.
+
+  scripts: [[setState, corruptionVoice, 2]]
+
+  options:
+    - answer: "Get out of here while you can. Obviously something is after her."
+      scripts: [[remove, "Kelsey"], [karma, -3]]
+      result: "Sleep seems to wash over her as you step away. You find your way back into the light."
+    - answer: "Drop your pack and take Kelsey over your shoulders. Get out of there."
+      scripts: [[supplies, -40]]
+      result: "Leaving behind supplies that could prove essential, you scoop Kelsey off the ground and carry her to the light."
+
+
+###
+- title: A voice I know
+  filter: [[not, inCorruption], [hasPeople, "Kelsey"], [atLeastState, corruptionVoice, 2], [atLeastState, adjuticators, 1]]
+  description: >-
+    Some time has past since the corruption overwhelmed Kelsey. She
+    hasn't spoken about the experience and you didn't think it
+    appropriate to ask.
+
+    "That time, in the darkness..." she shudders.
+
+    "I recognized the voice. I... know who was speaking."
+
+    She breathes deeply, glancing nervously at her feet. The
+    corruption is far behind you and her confidence grows as she
+    realizes this.
+
+    "I didn't think he would remember me."
+
+    Kelsey recalls an early encounter with the adjudicators. A young
+    Thelmin.... [BTT write more here tomorrow]
+
+  scripts: [[setState, "corruptionVoice", 3]]
+
+  options:
+    - answer: "ok"
+      result: "ok"
+
+- title: The Adjudicators
+  filter: [[not, inCorruption]]
+  description: >-
+    Does this work?
+
+  scripts: [[setState, adjudicators, 1]]
+
+  options:
+    - answer: "ok"
+      result: "ok"
