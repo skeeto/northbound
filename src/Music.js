@@ -26,7 +26,7 @@ Music.start = function() {
             autoplay: true,
             loop: false,
             volume: 0.4,
-            onend: music
+            onend: Music.next
         });
     }
     $('#music').show();
@@ -42,6 +42,11 @@ Music.stop = function() {
     $('#music').hide();
     $('#mute').show();
     localStorage.NB_music = 'off';
+};
+
+Music.next = function() {
+    Music.stop();
+    Music.start();
 };
 
 Music.toggle = function() {
