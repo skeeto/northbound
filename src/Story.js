@@ -283,7 +283,10 @@ Story.act = function(option, callback) {
     }
     $('#story .close').show().on('click', close);
     $(document).on('keypress.close', function(event) {
-        if (event.keyCode === 13) close();
+        var min = '1'.charCodeAt(0),
+            max = '9'.charCodeAt(0),
+            code = event.keyCode;
+        if (code === 13 || (code >= min && code <= max)) close();
     });
 };
 
