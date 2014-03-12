@@ -71,9 +71,7 @@ Story.scripts = {
         game.player.supplies += Story.toNumber(n);
     },
     advance: function(n) {
-        for (var i = 0; i < n; i++) {
-            game.map.advance();
-        }
+        game.advanceQueue += n;
     },
     play: function(name) {
         Sfx.play(name);

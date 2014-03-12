@@ -13,6 +13,7 @@ function Game() {
     this.player.supplies = 100;
     this.player.items = [];
     this.player.fatigue = 0;
+    this.advanceQueue = 0;
     this.storyState = {};
     this.units = [this.player];
     this._units = null;
@@ -47,6 +48,12 @@ Game.prototype.getStoryState = function(story) {
 Game.prototype.step = function(callback) {
     if (game.isDone()) {
         game.showEnd();
+        return;
+    } else if (this.advanceQueue > 0) {
+        this.advanceQueue--;
+        display.draw();
+        this.map.advance();
+        window.setTimeout(callback, 100);
         return;
     }
     this.player.party.shuffle();
