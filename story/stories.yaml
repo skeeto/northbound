@@ -297,9 +297,8 @@
     Kelsey tells you about the inscription on the Tior Totem.
 
       <pre>
-      All that lives must die.<br/>
-      Death may choose to grant life.<br/>
-      We, the Adjudicators, are mere conduits.<br/>
+      Death yields to life and the dead must choose.</br>
+      We, the Adjudicators, provide the path.<br/>
       </pre>
 
     "The voice," she says in tones approaching a whisper, "was Phaqua
@@ -310,17 +309,16 @@
   options:
     - answer: Continue on your journey.
       result: >-
-        You thank Kelsey and continue on your journey. The name Phaqua
-        Cheiray rings in your mind and you are certain that it was
-        familiar to you at one point.
+        You thank Kelsey and continue on your journey. That name,
+        Phaqua Cheiray, rings in your mind and you are certain that it
+        was familiar to you at one point.
 
 ###
 - title: The Adjudicators
   description: >-
 
-    A richly grained totem, just visible below the brush, catches your
-    attention. The edges are banded with copper. You move closer to
-    examine the object in more detail.
+    A richly grained totem, just visible below the brush, grabs your
+    attention. You move closer to examine the object in more detail.
 
     {{#hasPeople Kelsey}}
     You notice that Kelsey is staying back. It doesn't seem to be feer
@@ -338,9 +336,8 @@
         lettering:
 
         <pre>
-        All that lives must die.<br/>
-        Death may choose to grant life.<br/>
-        We, the Adjudicators, are mere conduits.<br/>
+        Death yields to life and the dead must choose.</br>
+        We, the Adjudicators, provide the path.<br/>
         </pre>
 
       scripts: [[newitem, "Adjudicator Totem"]]
@@ -358,8 +355,9 @@
     Kelsey touches your arm and you turn to see the seriousness in her
     eyes. "We need to talk", she says, "about The Tior Totem."
 
-    She has been glancing furtively at the Wooden Totem and you assume
-    that this is what she is referring to.
+    She has been glancing furtively at the richly grained totem you
+    picked up earlier and you assume that this is what she is
+    referring to.
 
     No one ever discusses life before the event so you are even more
     surprised as she begins to share those details.
