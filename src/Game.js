@@ -92,6 +92,7 @@ Game.prototype.step = function(callback) {
             this.player.supplies += count;
             this.message('You pick up ' + Math.round(count) + ' supplies.',
                          'noise');
+            Sfx.play('collect');
         }
         this._units = this.units.slice(0);
         this._step(callback);
