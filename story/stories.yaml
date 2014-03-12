@@ -317,9 +317,11 @@
         base of the object is deaply inscribed with the rich
         lettering:
 
-          All that lives must die.
-          Death may choose to grant life.
-          We, the Adjudicators, are mere conduits.
+        <pre>
+        All that lives must die.<br/>
+        Death may choose to grant life.<br/>
+        We, the Adjudicators, are mere conduits.<br/>
+        </pre>
 
       scripts: [[newitem, "Adjudicator Totem"]]
 
