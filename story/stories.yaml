@@ -245,7 +245,7 @@
     She's interrupted by her own shreaks which seem to pulse with the
     waves of heat that surround you.
 
-    Kelsey, still on the ground, grows still.
+    Kelsey, still on the ground, stops shaking.
 
   scripts: [[setState, corruptionVoice, 2]]
 
