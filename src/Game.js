@@ -198,7 +198,7 @@ Game.FATIGUE = {
 };
 
 Game.prototype.fatigue = function() {
-    var fatigue = this.player.fatigue;
+    var fatigue = this.player.fatigue; /* turn counter */
     if (fatigue > 110) {
         return Game.FATIGUE.EXHAUSTED;
     } else if (fatigue > 75) {
