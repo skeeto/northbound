@@ -170,8 +170,7 @@
         You allow Kelsey to leave with some supplies. Perhaps she'll
         forgive you someday, if she survives on her own.
       scripts: [[karma, 10], [supplies, -15], [remove, "Kelsey"]]
-    - answer: >-
-        Don't allow her to take any supplies.
+    - answer: "Don't allow her to take any supplies."
       result: >-
         Kelsey walks off on her own. Without any food she probably
         won't last very long out there.
@@ -189,16 +188,22 @@
     {{/minParty}}
 
   options:
-    - answer: Search the nearby ground. (chance for supplies, corruption advances 5 tiles).
-      result: You recover discover all there is to discover.
+    - answer: >-
+        Search the nearby ground. (chance for supplies, corruption
+        advances 5 tiles).
+      result: You discover all there is to discover.
       scripts: [[supplies, "1d10"], [advance, 5]]
 
-    - answer: Draw straws. Whoever loses drops their pack and walks away. (20 supplies).
+    - answer:
+        Draw straws. Whoever loses drops their pack and walks away.
+        (20 supplies).
       result: Another soul is lost to the corruption.
       filter: [[minParty, 1]]
       scripts: [removerandom, [supplies, 20]]
 
-    - answer: "Continue ignoring it. {{#minParty 1}}You're not the only one who can deal with hunger.{{/minParty}}"
+    - answer: >-
+        Continue ignoring it. {{#minParty 1}} You're not the only one
+        who can deal with hunger.{{/minParty}}"
       result: You struggle forward ignoring the protests from your body.
 
 ###
@@ -221,12 +226,20 @@
   scripts: [[setState, corruptionVoice, 1]]
 
   options:
-    - answer: "She's distracted. Leave Kelsey behind so she and her friend can get acquanted."
+    - answer:
+        She's distracted. Leave Kelsey behind so she and her friend
+        can get acquanted.
       scripts: [[remove "Kelsey"], [karma, -3]]
-      result: "Kelsey's mutterings fade away as you force your body to move towards the light"
-    - answer: "She can't escape on her own. Drop your supplies so that you can pull her to safety."
+      result: >-
+        Kelsey's mutterings fade away as you force your body to move
+        towards the light.
+    - answer: >-
+        She can't escape on her own. Drop your supplies so that you
+        can pull her to safety.
       scripts: [[supplies, -30]]
-      result: "Gagging as you ingest the sickening air, you somehow drag Kelsey beyond the corrupting influence."
+      result: >-
+        Gagging as you ingest the sickening air, you somehow drag
+        Kelsey beyond the corrupting influence."
 
 ###
 - title: A voice like thunder
@@ -250,13 +263,18 @@
   scripts: [[setState, corruptionVoice, 2]]
 
   options:
-    - answer: "Get out of here while you can. Obviously something is after her."
+    - answer: >-
+        Get out of here while you can. Obviously something is after her."
       scripts: [[remove, "Kelsey"], [karma, -3]]
-      result: "Sleep seems to wash over her as you step away. You find your way back into the light."
-    - answer: "Drop your pack and take Kelsey over your shoulders. Get out of there."
+      result: >-
+        Sleep seems to wash over her as you step away. You find your
+        way back into the light.
+    - answer: >-
+        Drop your pack and take Kelsey over your shoulders. Get out of there.
       scripts: [[supplies, -40]]
-      result: "Leaving behind supplies that could prove essential, you scoop Kelsey off the ground and carry her to the light."
-
+      result: >-
+        Leaving behind supplies that could prove essential, you scoop
+        Kelsey off the ground and carry her to the light."
 
 ###
 - title: A voice I know
@@ -278,9 +296,11 @@
 
     Kelsey tells you about the inscription on the Tior Totem.
 
-          All that lives must die.
-          Death may choose to grant life.
-          We, the Adjudicators, are mere conduits.
+      <pre>
+      All that lives must die.<br/>
+      Death may choose to grant life.<br/>
+      We, the Adjudicators, are mere conduits.<br/>
+      </pre>
 
     "The voice," she says in tones approaching a whisper, "was Phaqua
     Cheiray, the Final Adjudicator."
@@ -326,7 +346,9 @@
       scripts: [[newitem, "Adjudicator Totem"]]
 
     - answer: "Don't touch it. It's probably a trap."
-      result: You walk back to safety wondering if you may have ignored something important.
+      result: >-
+        You walk back to safety wondering if you may have ignored
+        something important.
 
 ###
 - title: The Totem
@@ -356,9 +378,15 @@
   scripts: [[setState, adjudicator, 2]]
 
   options:
-    - answer: "Nod and thank Kelsey for making things \"so clear\"."
-      result: "Kelsey seems relieved to have been heard and that you don't seem to have additional questions."
-
-    - answer: "Demand that Kelsey explain how a piece of would could \"choose to be found\"!"
-      result: "Kelsey refuses to say more and her eyes tell you that she won't be speaking again for a while."
+    - answer: >-
+        Nod and thank Kelsey for making things "so clear."
+      result: >-
+        Kelsey seems relieved to have been heard and that you don't
+        seem to have additional questions.
+    - answer: >-
+        Demand that Kelsey explain how a piece of would could "choose
+        to be found!"
+      result: >-
+        Kelsey refuses to say more and her eyes tell you that she
+        won't be speaking again for a while.
       scripts: [[karma, -2]]
