@@ -17,8 +17,9 @@ Display.prototype.draw = function() {
         s.render();
     });
     this.drawMessages();
-    this.drawHUD();
-    this.drawTime(this.game);
+    this.drawStatus();
+    this.drawTime();
+    this.drawParty();
 };
 
 Display.prototype.fixup = function() {
@@ -131,21 +132,28 @@ Display.prototype.drawMessages = function() {
     });
 };
 
-Display.prototype.drawHUD = function() {
+Display.prototype.drawStatus = function() {
     $('#supplies').text(Math.floor(this.game.player.supplies) + ' supplies');
     $('#alignment')
-        .text(game.alignment())
+        .text(this.game.alignment())
         .removeClass()
-        .addClass('alignment-' + game.alignment());
-    $('#time').text(game.timeString());
+        .addClass('alignment-' + this.game.alignment());
+    $('#time').text(this.game.timeString());
 };
 
-Display.prototype.drawTime = function(game) {
+Display.prototype.drawTime = function() {
     var ctx = this.ctx;
     ctx.save();
-    var bright = (Math.cos((game.time() + 0.5) * 2 * Math.PI) + 1) / 2;
+    var bright = (Math.cos((this.game.time() + 0.5) * 2 * Math.PI) + 1) / 2;
     ctx.globalAlpha = 0.6 - (Math.sqrt(bright) * 0.6);
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.restore();
+};
+
+Display.prototype.drawParty = function() {
+    var $party = $('#party').empty();
+    this.game.player.party.slice(0).sort().forEach(function(member) {
+        $party.append($('<li/>').addClass('member').text(member));
+    });
 };
