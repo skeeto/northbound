@@ -96,6 +96,12 @@ Story.filters = {
         });
     },
 
+    hasItems: function(items) {
+        return Story.toArray(items).every(function(item) {
+            return game.player.items.indexOf(item) >= 0;
+        });
+    },
+
     minParty: function(number) {
         return game.player.party.length >= number;
     },
@@ -198,7 +204,7 @@ Story.expand = function(text) {
     return Handlebars.compile(text)({
         game: game,
         filters: Story.filters
-    });
+    }).replace(/\n/g, '</p><p>');
 };
 
 Story.evalScripts = function(story, scripts) {
@@ -236,7 +242,7 @@ Story.optionsForNames = function(names) {
 Story.show = function(story, callback) {
     Sfx.play('story');
     var title = Story.expand(story.title),
-        description = Story.expand(story.description.replace(/\n/g, '</p><p>'));
+        description = Story.expand(story.description);
     $('#story .title').html(title);
     $('#story .description').html('<p>' + description + '</p>');
 

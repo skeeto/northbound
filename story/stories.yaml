@@ -276,22 +276,87 @@
 
     "I didn't think he would remember me."
 
-    Kelsey recalls an early encounter with the adjudicators. A young
-    Thelmin.... [BTT write more here tomorrow]
+    Kelsey tells you about the inscription on the Tior Totem.
 
-  scripts: [[setState, "corruptionVoice", 3]]
+          All that lives must die.
+          Death may choose to grant life.
+          We, the Adjudicators, are mere conduits.
+
+    "The voice," she says in tones approaching a whisper, "was Phaqua
+    Cheiray, the Final Adjudicator."
+
+  scripts: [[setState, "corruptionVoice", 3], [setState, Phaqua, 1]]
 
   options:
-    - answer: "ok"
-      result: "ok"
+    - answer: Continue on your journey.
+      result: >-
+        You thank Kelsey and continue on your journey. The name Phaqua
+        Cheiray rings in your mind and you are certain that it was
+        familiar to you at one point.
 
+###
 - title: The Adjudicators
-  filter: [[not, inCorruption]]
   description: >-
-    Does this work?
+
+    A richly grained totem, just visible below the brush, catches your
+    attention. The edges are banded with copper. You move closer to
+    examine the object in more detail.
+
+    {{#hasPeople Kelsey}}
+    You notice that Kelsey is staying back. It doesn't seem to be feer
+    or uncertainty but something more like reverence.
+    {{/hasPeople}}
 
   scripts: [[setState, adjudicators, 1]]
 
   options:
-    - answer: "ok"
-      result: "ok"
+    - answer: Lift the totem to examine it more closely.
+      result: >-
+
+        The object is smoothly polished and warm to the touch. The
+        base of the object is deaply inscribed with the rich
+        lettering:
+
+          All that lives must die.
+          Death may choose to grant life.
+          We, the Adjudicators, are mere conduits.
+
+      scripts: [[newitem, "Adjudicator Totem"]]
+
+    - answer: "Don't touch it. It's probably a trap."
+      result: You walk back to safety wondering if you may have ignored something important.
+
+###
+- title: The Totem
+  filter: [[hasPeople, Kelsey], [hasItems, "Adjudicator Totem"]]
+  description: >-
+
+    Kelsey touches your arm and you turn to see the seriousness in her
+    eyes. "We need to talk", she says, "about The Tior Totem."
+
+    She has been glancing furtively at the Wooden Totem and you assume
+    that this is what she is referring to.
+
+    No one ever discusses life before the event so you are even more
+    surprised as she begins to share those details.
+
+    "I had... friends... who told me about Tiors. They form a part of
+    the 'conduit for the will of death', whatever that means!" She
+    chuckles but you suspect that she is more confident in her words
+    than she wants to seem.
+
+    "Whatever." she says, "But I do know that a Tior is only found
+    when it chooses to be found. This Tior judged you worthy to carry
+    it. You have been given a great gift."
+
+    She seems unwilling to say more.
+
+  scripts: [[setState, adjudicator, 2]]
+
+  options:
+    - answer: "Nod and thank Kelsey for making things \"so clear\"."
+      result: "Kelsey seems relieved to have been heard and that you don't seem to have additional questions."
+
+    - answer: "Demand that Kelsey explain how a piece of would could \"choose to be found\"!"
+      result: "Kelsey refuses to say more and her eyes tell you that she won't be speaking again for a while."
+      scripts: [[karma, -2]]
