@@ -68,7 +68,11 @@ Game.prototype.step = function(callback) {
             this.map.advance();
         }
         this.map.lurk();
-        var loss = this.fatigue().value * (1 + this.player.party.length) *
+        var fatigue = this.fatigue();
+        if (fatigue.ordinal >= 4 && this.player.fatigue % 10 === 0) {
+            Sfx.play('alarm', 0.5);
+        }
+        var loss = fatigue.value * (1 + this.player.party.length) *
                 (this.inCorruption() ? 3 : 0.2);
         this.player.supplies -= loss;
         if (this.player.supplies < 0) {
@@ -200,13 +204,13 @@ Game.FATIGUE = {
 
 Game.prototype.fatigue = function() {
     var fatigue = this.player.fatigue; /* turn counter */
-    if (fatigue > 110) {
+    if (fatigue >= 110) {
         return Game.FATIGUE.EXHAUSTED;
-    } else if (fatigue > 75) {
+    } else if (fatigue >= 75) {
         return Game.FATIGUE.WEARY;
-    } else if (fatigue > 50) {
+    } else if (fatigue >= 50) {
         return Game.FATIGUE.TIRED;
-    } else if (fatigue > 10) {
+    } else if (fatigue >= 10) {
         return Game.FATIGUE.WARMED_UP;
     } else {
         return Game.FATIGUE.RESTED;
