@@ -61,11 +61,14 @@ Unit.STEP_PLAYER = function(callback) {
             case 190: // .
             case 12:
                 dx = 0; dy = 0;
+                unit.fatigue =
+                    Math.max(0, unit.fatigue - Game.FATIGUE_RECOVERY);
                 break;
             }
         if (dx != null && dy != null) {
             var xx = unit.x + dx, yy = unit.y - dy;
             if (yy < display.max() && !game.map.isSolid(xx, yy)) {
+                unit.fatigue++;
                 unit.x = xx;
                 unit.y = yy;
                 $(document).off('keydown.player');

@@ -152,6 +152,9 @@ Display.prototype.drawTime = function() {
 };
 
 Display.prototype.drawParty = function() {
+    var fatigue = this.game.fatigue();
+    $('#fatigue').text(fatigue.name)
+        .removeClass().addClass('fatigue-' + fatigue.ordinal);
     var $party = $('#party').empty();
     this.game.player.party.slice(0).sort().forEach(function(member) {
         $party.append($('<li/>').addClass('member').text(member));

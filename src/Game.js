@@ -12,6 +12,7 @@ function Game() {
     this.player.party = [];
     this.player.supplies = 100;
     this.player.items = [];
+    this.player.fatigue = 0;
     this.storyState = {};
     this.units = [this.player];
     this._units = null;
@@ -67,9 +68,9 @@ Game.prototype.step = function(callback) {
             this.map.advance();
         }
         this.map.lurk();
-        var inCorruption = this.inCorruption();
-        this.player.supplies
-            -= this.player.party.length * inCorruption ? 3 : 0.2;
+        var loss = this.fatigue().value * (1 + this.player.party.length) *
+                (this.inCorruption() ? 3 : 0.2);
+        this.player.supplies -= loss;
         if (this.player.supplies < 0) {
             this.player.supplies = 0;
             if (Math.random() < 0.25) {
@@ -183,4 +184,30 @@ Game.prototype.timeString = function() {
         h12 = (hour % 12) == 0 ? '12' : hour % 12;
     if (minute < 10) minute = '0' + minute;
     return h12 + ':' + minute + m;
+};
+
+/** Number of turns recovered by resting once. */
+Game.FATIGUE_RECOVERY = 15;
+
+Game.FATIGUE = {
+    RESTED:    {ordinal: 0, name: 'Rested', value: 0.5},
+    WARMED_UP: {ordinal: 1, name: 'Warmed Up', value: 1},
+    TIRED:     {ordinal: 2, name: 'Tired', value: 1.5},
+    WEARY:     {ordinal: 3, name: 'Weary', value: 2},
+    EXHAUSTED: {ordinal: 4, name: 'Exhausted', value: 4}
+};
+
+Game.prototype.fatigue = function() {
+    var fatigue = this.player.fatigue;
+    if (fatigue > 110) {
+        return Game.FATIGUE.EXHAUSTED;
+    } else if (fatigue > 75) {
+        return Game.FATIGUE.WEARY;
+    } else if (fatigue > 50) {
+        return Game.FATIGUE.TIRED;
+    } else if (fatigue > 10) {
+        return Game.FATIGUE.WARMED_UP;
+    } else {
+        return Game.FATIGUE.RESTED;
+    }
 };
