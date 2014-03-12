@@ -12,22 +12,31 @@ Music.MUSIC = [
     });
 });
 
-Music.howl = null;
+Music.music = null;
+Music.wind = null;
+Music.playing = false;
 
 Music.playing = function() {
-    return Music.howl != null;
+    return Music._playing;
 };
 
 Music.start = function() {
     if (!Music.playing()) {
         var song = Music.MUSIC.shuffle()[0];
-        Music.howl = new Howl({
+        Music.music = new Howl({
             urls: song,
             autoplay: true,
             loop: false,
             volume: 0.4,
             onend: Music.next
         });
+        Music.wind = new Howl({
+            urls: ['sfx/wind.ogg', 'sfx/wind.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.10
+        });
+        Music._playing = true;
     }
     $('#music').show();
     $('#mute').hide();
@@ -36,8 +45,11 @@ Music.start = function() {
 
 Music.stop = function() {
     if (Music.playing()) {
-        Music.howl.stop();
-        Music.howl = null;
+        Music.music.stop();
+        Music.wind.stop();
+        Music.music = null;
+        Music.wind = null;
+        Music._playing = false;
     }
     $('#music').hide();
     $('#mute').show();

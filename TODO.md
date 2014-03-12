@@ -4,5 +4,4 @@
 * special items
 * endgame?
 * quest/event markers (roaming "monster" events?)
-* ambient sound?
 * draw between multiple advances
