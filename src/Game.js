@@ -190,11 +190,11 @@ Game.prototype.timeString = function() {
 Game.FATIGUE_RECOVERY = 15;
 
 Game.FATIGUE = {
-    RESTED:    {ordinal: 0, name: 'Rested', value: 0.5},
-    WARMED_UP: {ordinal: 1, name: 'Warmed Up', value: 1},
-    TIRED:     {ordinal: 2, name: 'Tired', value: 1.5},
-    WEARY:     {ordinal: 3, name: 'Weary', value: 2},
-    EXHAUSTED: {ordinal: 4, name: 'Exhausted', value: 4}
+    RESTED:    { ordinal: 0, name: 'Rested',    value: 0.5 },
+    WARMED_UP: { ordinal: 1, name: 'Warmed Up', value: 1   },
+    TIRED:     { ordinal: 2, name: 'Tired',     value: 1.5 },
+    WEARY:     { ordinal: 3, name: 'Weary',     value: 2   },
+    EXHAUSTED: { ordinal: 4, name: 'Exhausted', value: 4   }
 };
 
 Game.prototype.fatigue = function() {
