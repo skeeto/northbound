@@ -239,6 +239,7 @@ Story.optionsForNames = function(names) {
 
 Story.show = function(story, callback) {
     Sfx.play('story');
+    display.draw();
     var title = Story.expand(story.title),
         description = Story.expand(story.description);
     $('#story .title').html(title);

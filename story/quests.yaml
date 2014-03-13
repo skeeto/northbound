@@ -1,8 +1,14 @@
 ---
 - title: An abandoned campsite
-  placement: {types: [GRASS], distance: 1d4+40}
-  description: Blah blah.
+  placement: {types: [GRASS], distance: 1d10+40}
+  description: >-
+    After following some light smoke billowing in the distance, you
+    come across an abandoned campsite with a smoldering fire. It must
+    have been left behind recently from others heading north. Oddly
+    they seemed to have left some supplies by accident.
   options:
-    - answer: Blah
-      result: Blah
-      scripts: [[supplies, 100]]
+    - answer: Take the supplies with you.
+      result: You add the supplies to your pack.
+      scripts: [[supplies, 20]]
+    - answer: This is too suspicious.
+      result: You move on.

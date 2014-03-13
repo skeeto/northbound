@@ -104,6 +104,11 @@ Game.prototype.step = function(callback) {
             this.message('You pick up ' + Math.round(count) + ' supplies.',
                          'noise');
             Sfx.play('collect');
+        } else if (playertile.quest != null) {
+            var quest = playertile.quest;
+            playertile.quest = null;
+            Story.show(quest, callback);
+            return;
         }
         this._units = this.units.slice(0);
         this._step(callback);
