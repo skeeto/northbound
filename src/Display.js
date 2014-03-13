@@ -61,10 +61,15 @@ Display.prototype.drawMap = function () {
             if (base) {
                 ctx.drawImage(base, xx, yy, s, s);
             }
-            var obstacle = tile.obstacle;
-            if (obstacle != null) {
-                var image = corrupted ? obstacle.corrupt :
+            var obstacle = tile.obstacle, quest = tile.quest;
+            if (obstacle != null || quest != null) {
+                var image = null;
+                if (obstacle != null) {
+                    image = corrupted ? obstacle.corrupt :
                         cold ? obstacle.snow : obstacle.image;
+                } else {
+                    image = Tile.QUEST.image;
+                }
                 if (image) {
                     var overhang = (image.height - image.width) / image.width;
                     var render = (function(xx, yy, image, overhang) {
@@ -95,9 +100,6 @@ Display.prototype.drawUnits = function() {
         h = ctx.canvas.height,
         s = w / this.game.map.width,
         ht = Math.ceil(h / s);
-    ctx.font = Math.floor(s) + 'px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'bottom';
     var _this = this;
     return units.map(function(u) {
         var y = h - (u.y - _this.min()) * s,
@@ -105,6 +107,9 @@ Display.prototype.drawUnits = function() {
         return {
             y: y,
             render: function() {
+                ctx.font = Math.floor(s) + 'px sans-serif';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'bottom';
                 ctx.drawImage(Tile.SHADOW.image, u.x * s, y - s, s, s);
                 ctx.fillStyle = cold ? u.style.cold : u.style.normal;
                 ctx.fillText(u.c, u.x * s, y);

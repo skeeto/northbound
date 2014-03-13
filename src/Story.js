@@ -6,13 +6,13 @@ Story.load = function() {
     $.get('story/stories.yaml', function(data) {
         Story.stories = jsyaml.load(data);
     });
-
     $.get('story/commonOptions.yaml', function(data) {
         Story.commonOptions = jsyaml.load(data);
     });
+    $.get('story/quests.yaml', function(data) {
+        game.map.addQuests(jsyaml.load(data));
+    });
 };
-
-Story.load();
 
 Story.toNumber = function(litOrDice) {
     if (typeof litOrDice == "string") {

@@ -100,3 +100,4 @@ Tile.SUPPLIES = Tile.get('crates.png', {
 
 /* Misc */
 Tile.SHADOW = Tile.get('shadow.png');
+Tile.QUEST = Tile.get('quest.png');

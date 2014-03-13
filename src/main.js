@@ -8,6 +8,7 @@ function start() {
     ctx = $('#map').get(0).getContext('2d');
     game = new Game();
     display = new Display(game, ctx);
+    Story.load();
     $messages = $('#messages');
     $(window).resize(function() {
         display.draw();

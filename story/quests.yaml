@@ -1,0 +1,8 @@
+---
+- title: An abandoned campsite
+  placement: {types: [GRASS], distance: 1d4+40}
+  description: Blah blah.
+  options:
+    - answer: Blah
+      result: Blah
+      scripts: [[supplies, 100]]

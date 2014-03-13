@@ -1,6 +1,7 @@
 function Map() {
     this.rows = [];
     this.edge = -1;
+    this.quests = {};
     this.advance();
 }
 
@@ -46,7 +47,7 @@ Map.select = function(value, x, y) {
 Map.cold = function(x, y) {
     var cold = noise.perlin3(x / Map.COLD_SCALE, y / Map.COLD_SCALE, 1.5),
         limit = Math.atan((y - Map.COLD_RANGE) / Map.COLD_RANGE) - 0.3;
-     return cold < limit;
+    return cold < limit;
 };
 
 Map.bselect = function(value, base, x, y) {
@@ -86,7 +87,38 @@ Map.prototype.generate = function(n) {
             row.push(tile);
         }
         this.rows.push(row);
+        this.placeQuests(y);
     }
+};
+
+Map.prototype.placeQuests = function(y) {
+    var quests = this.quests[y],
+        row = this.rows[y];
+    if (row == null || quests == null) return;
+    while (quests.length > 0) {
+        var quest = quests.pop();
+        quest.ttl--;
+        if (quest.ttl > 0) {
+            var valid = [];
+            for (var qx = 0; qx < row.length; qx++) {
+                var qtile = row[qx];
+                if (quest.placement.types.indexOf(qtile.type) >= 0) {
+                    if (qtile.obstacle == null) {
+                        valid.push(qtile);
+                    }
+                }
+            }
+            /* No valid placement found, push back one more tile. */
+            if (valid.length === 0) {
+                this.addQuest(quest, y + 1);
+            } else {
+                valid.shuffle()[0].quest = quest;
+            }
+        } else {
+            console.log('Failed to place ' + quest.title);
+        }
+    }
+    this.placeQuests(y + 1);
 };
 
 Map.prototype.advance = function() {
@@ -126,4 +158,31 @@ Map.prototype.isSolid = function(x, y) {
     return tile == null
         || (tile.type.solid && (tile.type.water ? !tile.cold : true))
         || tile.obstacle != null && tile.obstacle.solid;
+};
+
+Map.prototype.addQuest = function(quest, dist) {
+    var listing = this.quests[dist];
+    if (listing == null) {
+        listing = [];
+        this.quests[dist] = listing;
+    }
+    listing.push(quest);
+    this.placeQuests(dist);
+};
+
+Map.prototype.addQuests = function(quests) {
+    var _this = this;
+    quests.forEach(function(quest) {
+        var dist = null;
+        if (typeof quest.placement.distance === "string") {
+            dist = RNG.roller(quest.placement.distance)();
+        } else {
+            dist = quest.placement.distance;
+        }
+        quest.placement.types = quest.placement.types.map(function(t) {
+            return Tile[t];
+        });
+        quest.ttl = 100;
+        _this.addQuest(quest, dist);
+    });
 };
