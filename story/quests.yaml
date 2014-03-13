@@ -12,3 +12,24 @@
       scripts: [[supplies, 20]]
     - answer: This is too suspicious.
       result: You move on.
+
+###
+- title: Look what washed up
+  placement: {types: [WATER1], distance: 1d10+20}
+  description: >-
+    You come across a message in a bottle washed up on the shore of a
+    lake, the bottle bobbing gently in the waves. Written on the
+    parchment inside is very deliberate, careful calligraphy saying:
+
+    <pre>
+    Corruption of the land<br/>
+    A result of corruption of the mind<br/>
+    Together we all must band<br/>
+    And work together in kind<br/>
+    </pre>
+
+  options:
+    - answer: Throw the bottle back into the lake.
+      result: The bottle disappears in mid air without landing in the lake!
+    - answer: Take the message with you.
+      result: You discard the bottle and tuck the note into your pocket.
