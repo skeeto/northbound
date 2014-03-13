@@ -8,7 +8,9 @@ Display.prototype.draw = function() {
     var ctx = this.ctx;
     this.fixup();
     var sprites = this.drawMap();
-    sprites = sprites.concat(this.drawUnits());
+    if (!this.game.introMode) {
+        sprites = sprites.concat(this.drawUnits());
+    }
     sprites.sort(function(a, b) {
         if(a.y > b.y) return 1;
         if(a.y < b.y) return -1;
@@ -16,10 +18,12 @@ Display.prototype.draw = function() {
     }).forEach(function(s) {
         s.render();
     });
-    this.drawMessages();
-    this.drawStatus();
-    this.drawTime();
-    this.drawParty();
+    if (!this.game.introMode) {
+        this.drawMessages();
+        this.drawStatus();
+        this.drawTime();
+        this.drawParty();
+    }
 };
 
 Display.prototype.fixup = function() {

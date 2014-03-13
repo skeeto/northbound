@@ -3,16 +3,29 @@ var game = null,
     ctx = null,
     $messages = null;
 
-function start() {
-    noise.seed(Math.random());
+function init() {
     ctx = $('#map').get(0).getContext('2d');
-    game = new Game();
-    display = new Display(game, ctx);
-    Story.load();
     $messages = $('#messages');
     $(window).resize(function() {
         display.draw();
     });
+}
+
+function intro() {
+    game = new Game();
+    game.introMode = true;
+    display = new Display(game, ctx);
+    function step() {
+        game.step(step);
+    }
+    game.step(step);
+}
+
+function start() {
+    game.kill = true;
+    game = new Game();
+    display = new Display(game, ctx);
+    Story.load();
     game.message('Escape northward!');
 
     function step() {
@@ -28,7 +41,10 @@ Array.prototype.shuffle = function() {
     return this;
 };
 
-$(document).ready(start);
+$(document).ready(function() {
+    init();
+    intro();
+});
 
 Tile.tiles.forEach(function(image) {
     image.onload = function() {

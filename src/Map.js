@@ -1,4 +1,5 @@
 function Map() {
+    noise.seed(Math.random());
     this.rows = [];
     this.edge = -1;
     this.quests = {};

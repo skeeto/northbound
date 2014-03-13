@@ -46,8 +46,9 @@ Game.prototype.getStoryState = function(story) {
 };
 
 Game.prototype.step = function(callback) {
-    if (game.isDone()) {
-        game.showEnd();
+    if (this.kill) return;
+    if (!this.introMode && this.isDone()) {
+        this.showEnd();
         return;
     } else if (this.advanceQueue > 0) {
         this.advanceQueue--;
@@ -60,7 +61,7 @@ Game.prototype.step = function(callback) {
 
     this.count++;
     var storytime = false;
-    if (Math.random() < 1 / Game.STORY_RATE) {
+    if (!this.introMode && Math.random() < 1 / Game.STORY_RATE) {
         var valid = Story.select(this);
         if (valid.length > 0) {
             var story = Game.randomChoice(valid);
@@ -82,7 +83,7 @@ Game.prototype.step = function(callback) {
         var loss = fatigue.value * (1 + this.player.party.length) *
                 (this.inCorruption() ? 3 : 0.2);
         this.player.supplies -= loss;
-        if (this.player.supplies < 0) {
+        if (!this.introMode && this.player.supplies < 0) {
             this.player.supplies = 0;
             if (Math.random() < 0.25) {
                 var party = this.player.party.shuffle();
@@ -104,14 +105,20 @@ Game.prototype.step = function(callback) {
             this.message('You pick up ' + Math.round(count) + ' supplies.',
                          'noise');
             Sfx.play('collect');
-        } else if (playertile.quest != null) {
+        } else if (!this.introMode && playertile.quest != null) {
             var quest = playertile.quest;
             playertile.quest = null;
             Story.show(quest, callback);
             return;
         }
-        this._units = this.units.slice(0);
-        this._step(callback);
+        if (!this.introMode) {
+            this._units = this.units.slice(0);
+            this._step(callback);
+        } else {
+            window.setTimeout(callback, 200);
+            this.player.y = this.map.edge;
+            display.draw();
+        }
     }
 };
 
