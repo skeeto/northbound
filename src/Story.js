@@ -184,6 +184,14 @@ Story.filters = {
             }
         });
     });
+
+    Handlebars.registerHelper('pluralize', function(number, singular, plural) {
+        if(number === 1) {
+            return singular;
+        } else {
+            return plural;
+        }
+    });
 })();
 
 Story.singleFilter = function(filterSpec) {

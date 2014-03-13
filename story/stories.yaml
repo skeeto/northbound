@@ -278,8 +278,10 @@
 
 ###
 - title: A voice I know
-  filter: [[not, inCorruption], [hasPeople, "Kelsey"], [atLeastState, corruptionVoice, 2], [atLeastState, adjuticators, 1]]
+  filter: [[not, inCorruption], [hasPeople, Kelsey], [atLeastState, corruptionVoice, 2], [atLeastState, adjuticators, 1]]
   description: >-
+    Kelsey touches your arm.
+
     Some time has past since the corruption overwhelmed Kelsey. She
     hasn't spoken about the experience and you didn't think it
     appropriate to ask.
@@ -304,7 +306,7 @@
     "The voice," she says in tones approaching a whisper, "was Phaqua
     Cheiray, the Final Adjudicator."
 
-  scripts: [[setState, "corruptionVoice", 3], [setState, Phaqua, 1]]
+  scripts: [[setState, corruptionVoice, 3], [setState, Phaqua, 1]]
 
   options:
     - answer: Continue on your journey.
@@ -340,7 +342,7 @@
         We, the Adjudicators, provide the path.<br/>
         </pre>
 
-      scripts: [[newitem, "Adjudicator Totem"]]
+      scripts: [[newitem, Adjudicator Totem]]
 
     - answer: "Don't touch it. It's probably a trap."
       result: >-
@@ -349,7 +351,7 @@
 
 ###
 - title: The Totem
-  filter: [[hasPeople, Kelsey], [hasItems, "Adjudicator Totem"]]
+  filter: [[hasPeople, Kelsey], [hasItems, Adjudicator Totem]]
   description: >-
 
     Kelsey touches your arm and you turn to see the seriousness in her
@@ -362,7 +364,7 @@
     No one ever discusses life before the event so you are even more
     surprised as she begins to share those details.
 
-    "I had... friends... who told me about Tiors. They form a part of
+    "I had... friends... who told me about Tiora. They form a part of
     the 'conduit for the will of death', whatever that means!" She
     chuckles but you suspect that she is more confident in her words
     than she wants to seem.
@@ -388,3 +390,53 @@
         Kelsey refuses to say more and her eyes tell you that she
         won't be speaking again for a while.
       scripts: [[karma, -2]]
+
+###
+- title: The Totem Speaks
+  filter: [[atLeastState, adjudicator, 2], [not, inCorruption]]
+  description: >-
+    You freeze. Something is moving in your pack.
+    {{#minParty 1}}
+    Your {{pluralize game.player.party.length "companion" "companions"}}
+    watch you expectantly.
+    {{/minParty}}
+
+    You open your bag and your hands practically leap to the
+    totem... or was it the totem that lept? At the moment of contact
+    your surroundings disappear and you are surrounded by pure
+    nothingness. Your body and all of its senses have vanished.
+
+    Yet this is not isolation. You are aware, even more aware of your
+    surroundings.
+    {{#minParty 1}}
+    You know your
+    {{pluralize game.player.party.length "companion is" "companions are"}}
+    nearby.
+    {{/minParty}}
+
+    {{#hasPeople "Kelsey"}}
+    A powerful sense of loss washes past you as you minds gaze passes
+    over Kelsey.
+    {{/hasPeople}}
+
+    {{#hasPeople "Old Ralph"}}
+    As your focus rests on Old Ralph you experience a richness of
+    hope, joy, and expectation.
+    {{/hasPeople}}
+
+    You feel welcomed in this place. You sense that the welcome is
+    directed not to you but through you and to the Tior. The Tior is
+    welcome and you have its blessing.
+
+    The satisfaction and belonging you feel are as real and powerful
+    as the most powerful of your previous experiences. And yet, as if
+    on the horizon, you can feel the boiling lust of the corruption.
+
+    The vision fades and you again experience the world through the
+    senses of your body.
+
+  scripts: [[setState, visions, 1]]
+
+  options:
+    - answer: Rest a moment to catch your breath.
+      result: After a few moments you remember how your legs work and continue your journey.
