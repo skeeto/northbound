@@ -46,6 +46,12 @@ $(document).ready(function() {
     intro();
 });
 
+$(document).on('click.start', function() {
+    $(document).off('click.start');
+    $('#banner').hide();
+    start();
+});
+
 Tile.tiles.forEach(function(image) {
     image.onload = function() {
         display.draw();

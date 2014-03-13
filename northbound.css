@@ -11,6 +11,19 @@ body {
     height: 100%;
 }
 
+#banner {
+    position: absolute;
+    top: 40px;
+    width: 680px;
+    left: 50%;
+    margin-left: -350px;
+    padding: 10px;
+    background: black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px #000;
+    z-index: 100;
+}
+
 #game {
     box-sizing: border-box;
     background: black;
