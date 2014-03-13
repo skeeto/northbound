@@ -21,7 +21,7 @@ function Game() {
 }
 
 Game.ADVANCE_RATE = 3;
-Game.STORY_RATE = 10000000;
+Game.STORY_RATE = 25;
 
 Game.randomIndex = function(arr) {
     return Math.floor(Math.random() * arr.length);
