@@ -56,6 +56,16 @@
     Old Ralph exclaims, "Jackpot, an old distillery! Follow me and
     I'll show you where they keep the really good stuff!"
 
+    He chuckles, "Sam and I had dealin' once with an ol' bloke. This
+    guy claims that he'd been to 'Moonshine Valley'.  Some huge
+    operation up North, so he says. I wonder if he was tellin the
+    truth."
+
+    {{#hasPeople "Kelsey"}}
+    Kelsey mutters something about Old Ralph's love of drink and lack
+    of wits.
+    {{/hasPeople}}
+
     {{/hasPeople}}
 
   options:
@@ -63,12 +73,84 @@
       result: You recover a few supplies.
       scripts: [[supplies, -10], [advance, 5], [supplies, "2d10"]]
     - answer: Follow Old Ralph (gain 30 supplies, corruption advances 2 tiles).
-      result: You leave with bags filled and even a little hope.
-      scripts: [[supplies, 30], [advance, 2]]
+      result: >-
+        You leave with a pack full of supplies and a little more hope.
+
+        {{#hasPeople "Kelsey"}}
+        Kelsey is still muttering something but you can't quite make
+        out the words.
+        {{/hasPeople}}
+
+      scripts: [[supplies, 30], [advance, 2], [setState, still, 1]]
       filter: [[hasPeople, "Old Ralph"]]
     - answer: Ignore the door
       result: You press on, ignoring the distraction.
       scripts: [[play, thwart]]
+
+###
+- title: Moonshine Valley
+  filter: [[hasPeople, Old Ralph], [not, inCorruption], [atLeastState, still, 1]]
+  description: >-
+    A soft chuckle reaches your ears and you turn to see a
+    self-satisfied grin on Old Ralph creased face.
+
+    {{#hasPeople "Kelsey"}}
+    Kelsey turns to glare at Old Ralph. "Oh, what now!" she says,
+    voice rich with scorn.
+    {{/hasPeople}}
+
+    He guestures ahead, guiding your view towards the valley that has
+    just become visible. "Moonshine Valley!" he says, "I was always
+    tellin' Sam it was a real place."
+
+    As you approach, the view below opens to reveal cask after cask of
+    supplies.
+
+    {{#hasPeople "Kelsey"}}
+    Kelsey's expression somehow sours even more. But, you suspect that
+    she would be willing to swallow some pride in exchange for
+    delaying starvation by a few more hours.
+    {{/hasPeople}}
+
+  options:
+    - answer: Take whatever you can gather quickly (20 supplies, corruption advances 1 tile).
+      result: You act quickly to gather what you can.
+      scripts: [[supplies, 20], [advance, 1]]
+
+    - answer: Split up and take everything you can carry (60 supplies, corruption advances 4 tiles).
+      filter: [[hasPeople, 1]]
+      result: You meet up on the north end of the valley with well stocked packs.
+      scripts: [[supplies, 60], [advance, 4]]
+
+###
+- title: "Old Ralph's Old Bones"
+  filter: [[hasPeople, Old Ralph], inCold]
+  description: >-
+    Old Ralph shudders, shifting his pack against the cold. His
+    laughing eyes and ready smile have been replaced by a grim
+    determination. The cold is cutting him deaply.
+
+    {{#hasPeople}}
+    Kelsey glances towards him with concern written on her face. It
+    would seem that the intensity of his struggle is apparent to her
+    as well.
+    {{/hasPeople}}
+
+  options:
+    - answer: >-
+        Suggest a short break and use some of your supplies to build a
+        fire (-10 supplies, corruption advances 3 tiles).
+      result: The rest is a relief to everyone. Old Ralph even cracks a joke as you pack up camp.
+      scripts: [[supplies, -20], [advance, 1]]
+
+    - answer: Press on. The cold is another battle to fight.
+      result: >-
+        A complaint never crosses Old Ralph's lips. He trudges on
+        boldy while growing visibly weaker and weaker.
+
+        Finally, the trudging stops. Without shout or ceremony, Old
+        Ralph simply collapses in the snow and breaths his last.
+      scripts: [[remove, "Old Ralph"]]
 
 ###
 - title: Into the darkness
@@ -208,7 +290,7 @@
 
 ###
 - title: A voice in the darkness
-  filter: [inCorruption, [hasPeople, "Kelsey"], [atLeastState, corruption, 1]]
+  filter: [inCorruption, [hasPeople, Kelsey], [atLeastState, corruption, 1]]
   description: >-
 
     You are embraced by the silent warmth of the corruption. A wrong
@@ -395,7 +477,7 @@
 - title: The Totem Speaks
   filter: [[atLeastState, adjudicator, 2], [not, inCorruption]]
   description: >-
-    You freeze. Something is moving in your pack.
+    You freeze, sensing activity in your pack.
     {{#minParty 1}}
     Your {{pluralize game.player.party.length "companion" "companions"}}
     watch you expectantly.
@@ -415,7 +497,7 @@
     {{/minParty}}
 
     {{#hasPeople "Kelsey"}}
-    A powerful sense of loss washes past you as you minds gaze passes
+    A powerful sense of loss washes past you as you mind's gaze passes
     over Kelsey.
     {{/hasPeople}}
 
