@@ -49,6 +49,7 @@ $(document).ready(function() {
 $(document).on('click.start', function() {
     $(document).off('click.start');
     $('#banner').hide();
+    $('#intro').hide();
     start();
 });
 

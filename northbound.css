@@ -24,6 +24,38 @@ body {
     z-index: 100;
 }
 
+#intro {
+    position: absolute;
+    top: 250px;
+    width: 680px;
+    left: 50%;
+    margin-left: -350px;
+    text-align: justify;
+    font-size: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    z-index: 100;
+}
+
+#intro b {
+    width: 150px;
+    display: inline-block;
+}
+
+#click-to-begin {
+    text-align: center;
+    font-size: 28px;
+    color: yellow;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#intro kbd {
+    font-family: sans-serif;
+    font-style: normal;
+    text-decoration: underline;
+}
+
 #game {
     box-sizing: border-box;
     background: black;
