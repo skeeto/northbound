@@ -9,7 +9,7 @@
   options:
     - answer: Take the supplies with you.
       result: You add the supplies to your pack.
-      scripts: [[supplies, 20]]
+      scripts: [[supplies, 20], [setState, campsite, 1]]
     - answer: This is too suspicious.
       result: You move on.
 

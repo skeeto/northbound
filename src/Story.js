@@ -64,6 +64,10 @@ Story.scripts = {
     removerandom: function() {
         Story.scripts.remove(Game.randomChoice(game.player.party));
     },
+    killrandom: function() {
+        var person = Game.randomChoice(game.player.party);
+        // game.fireEvent(person);
+    },
     karma: function(n) {
         game.player.karma += Story.toNumber(n);
     },

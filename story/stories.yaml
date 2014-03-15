@@ -119,7 +119,7 @@
       scripts: [[supplies, 20], [advance, 1]]
 
     - answer: Split up and take everything you can carry (60 supplies, corruption advances 4 tiles).
-      filter: [[hasPeople, 1]]
+      filter: [[minParty, 1]]
       result: You meet up on the north end of the valley with well stocked packs.
       scripts: [[supplies, 60], [advance, 4]]
 
@@ -131,7 +131,7 @@
     laughing eyes and ready smile have been replaced by a grim
     determination. The cold is cutting him deaply.
 
-    {{#hasPeople}}
+    {{#hasPeople "Kelsey"}}
     Kelsey glances towards him with concern written on her face. It
     would seem that the intensity of his struggle is apparent to her
     as well.
@@ -152,6 +152,60 @@
         Finally, the trudging stops. Without shout or ceremony, Old
         Ralph simply collapses in the snow and breaths his last.
       scripts: [[remove, "Old Ralph"]]
+
+### Initiated by the "An abandoned campsite" marker
+- title: Annoyed Campers
+  filter: [[atLeastState, campsite, 1]]
+  description: >-
+    Again, you glance behind you. The rustling immediately stops but
+    this time you are sure that you are being followed.
+
+    {{#minParty 1}}
+    You aren't the only one who noticed this time.
+    {{/minParty}}
+
+    Your mind flashes back to the campsite that you raided. Apparently
+    the camp was not as abandoned as it had appeared to be.
+
+  options:
+    - filter: [[maxParty, 0]]
+      answer: >-
+        Drop some supplies and run. There's no way you can fight them by
+        yourself (-20 supplies).
+      result: >-
+        They do not pursue you. Apparently they were only interested
+        in their supplies.
+      scripts: [[supplies, -20]]
+
+    - filter: [[minParty, 1]]
+      answer: >-
+        Divide the load so that it's easier to run ahead and get out
+        of sight (corruption advances 2 tiles).
+      result: >-
+        You avoid the conflict and hide until the campers give up
+        their search. You managea keep all of the supplies.
+      scripts: [[advance, 2]]
+
+    - filter: [[minParty, 1]]
+      answer: Stand your ground and fight.
+      result: >-
+        You succeed but not without cost. You somberly discover
+        additional supplies as you search the corpses.
+      scripts: [[killrandom], [supplies, 20]]
+
+    - filter: [[hasItems, Adjuticator Totem]]
+      answer: Touch the totem in your pack.
+      result: >-
+        Your pursuers are near starvation. As your mind washes over
+        them in that soundless place you experience their torment.
+
+        You calm them. Comfort them. Welcome them.
+
+        You feel their relief as they willingly release the grasps
+        that they held to their tormented bodies. As their essense
+        joins the void they graciously yield what energies remained to
+        their bodies to you.
+      scripts: [[supplies, 80]]
 
 ###
 - title: Into the darkness
