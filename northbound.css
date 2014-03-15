@@ -192,7 +192,7 @@ body {
     display: block;
 }
 
-#gameover {
+.endgame {
     display: none;
     position: absolute;
     top: 100px;
@@ -205,20 +205,33 @@ body {
     box-shadow: 0px 0px 50px #000;
 }
 
-#gameover h1 {
+.endgame h1 {
     margin: 10px 0 10px 0;
     color: #eee;
     font-size: 50px;
 }
 
-#gameover h2 {
+.endgame h2 {
     margin: 0 0 0 0;
     font-size: 28px;
 }
 
-#gameover .distance {
+.endgame .distance {
     font-weight: bold;
     color: yellow;
+}
+
+#gamewin {
+    background: #eea;
+    color: #333;
+}
+
+#gamewin h1 {
+    color: #000;
+}
+
+#gamewin .distance {
+    color: blue;
 }
 
 .alignment-Angelic, .alignment-Good, .alignment-Honorable {

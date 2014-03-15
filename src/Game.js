@@ -159,16 +159,21 @@ Game.prototype.distance = function() {
     return this.player.y * 30 / 5280;
 };
 
-Game.prototype.end = function() {
-    this.gameOver = true;
+Game.prototype.end = function(state) {
+    this.gameOver = state;
 };
 
 Game.prototype.showEnd = function() {
     if (!this.endShown) {
         this.endShown = true;
-        Sfx.play('gameover');
-        $('#gameover .distance').text(this.distance().toFixed(2));
-        $('#gameover').show();
+        if (this.gameOver == 'win') {
+            Sfx.play('gameover');
+            $('#gamewin').show();
+        } else {
+            Sfx.play('gameover');
+            $('#gameover').show();
+        }
+        $('.endgame .distance').text(this.distance().toFixed(2));
     }
     display.draw();
 };
