@@ -4,12 +4,10 @@
   description: >-
     No one has had any food in some time but, for one of you, it is
     time to pay the ultimate price.
-
-  scripts: [dierandom, reuseable]
-
   options:
     - answer: "There is no way out. Hunger's price must be paid."
       result: Death rolls its dice.
+      scripts: [dierandom, reuseable]
 
 - title: Before her time
   type: DIE Kelsey
