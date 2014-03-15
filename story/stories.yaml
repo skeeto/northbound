@@ -191,7 +191,7 @@
       result: >-
         You succeed but not without cost. You somberly discover
         additional supplies as you search the corpses.
-      scripts: [[killrandom], [supplies, 20]]
+      scripts: [[dierandom], [supplies, 20]]
 
     - filter: [[hasItems, Adjuticator Totem]]
       answer: Touch the totem in your pack.
