@@ -156,7 +156,7 @@ Game.prototype.message = function(message, clazz) {
 
 /** @returns {number} distance player has traveled in miles */
 Game.prototype.distance = function() {
-    return this.player.y * 30 / 5280;
+    return this.player.y * 3000 / 5280;
 };
 
 Game.prototype.end = function(state) {
