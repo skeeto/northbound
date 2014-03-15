@@ -63,11 +63,13 @@ Story.scripts = {
         game.message('You lost a ' + name);
     },
     removerandom: function() {
-        Story.scripts.remove(Game.randomChoice(game.player.party));
+        var person = Game.randomChoice(game.player.party);
+        Story.scripts.remove(person);
         Story.scripts.fireEvent('REMOVE ' + person);
     },
     dierandom: function() {
         var person = Game.randomChoice(game.player.party);
+        Story.scripts.remove(person);
         Story.scripts.fireEvent('DIE ' + person);
     },
     karma: function(n) {
@@ -283,15 +285,15 @@ Story.show = function(story, callback) {
         $option.html(Story.expand(option.answer));
         $options.append($option);
         $option.on('click', function() {
-            Story.act(option, callback);
+            Story.act(story, option, callback);
         });
     });
-    Story.register(validOptions, callback);
+    Story.register(story, validOptions, callback);
     $('#story .close').hide();
     $('#story').show();
 };
 
-Story.act = function(option, callback) {
+Story.act = function(story, option, callback) {
     Story.unregister();
     $('#story .description').html(Story.expand(option.result));
     if (option.scripts) {
@@ -326,12 +328,12 @@ Story.select = function(type) {
     });
 };
 
-Story.register = function(options, callback) {
+Story.register = function(story, options, callback) {
     $(document).on('keypress.options', function(event) {
         var id = event.keyCode - '1'.charCodeAt(0),
             option = options[id];
         if (option != null) {
-            Story.act(option, callback);
+            Story.act(story, option, callback);
         }
     });
 };
