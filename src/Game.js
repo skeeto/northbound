@@ -22,8 +22,8 @@ function Game() {
 }
 
 Game.ADVANCE_RATE = 3;
-Game.STORY_RATE = 25;
-Game.STORY_PROBABILITY = 0.05;
+Game.STORY_RATE = 20;
+Game.STORY_PROBABILITY = 0.04;
 
 Game.randomIndex = function(arr) {
     return Math.floor(Math.random() * arr.length);

@@ -701,3 +701,46 @@
   options:
     - answer: Rest a moment to catch your breath.
       result: After a few moments you remember how your legs work and continue your journey.
+
+###
+- title: Starvation
+  probability: 1
+  filter: [[maxParty, 0], [maxSupplies, 0]]
+  description: >-
+    You have run out of supplies and it's been too long since you've
+    had anything to eat. The weakness in your legs is too much to
+    handle and you collapse. You will soon succumb to the sweet
+    comfort of death.
+  options:
+    - answer: Say your final prayers to your gods.
+      result: You have starved to death.
+      scripts: [[gameOver, lose]]
+
+###
+- title: Safety in sight!
+  filter: [[minDistance, 505]]
+  probability: 1
+  description: >-
+    You come to a fortress far in the north. It's the last land
+    settlement before the Great North Sea that covers the north pole.
+    The wooden wall separating the settlement from the wild are coated
+    in some sort of transparent oily material.
+
+    An armed soldier greets you at the gate, "Welcome to Svikgaard,
+    mankind's last stand against the corruption. The corruption cannot
+    pass these walls."
+
+  options:
+    - answer: Accept the hospitality of Svikgaard.
+      result: >-
+        You enter the fortified town. It's bitterly cold here, far
+        different than your life back home. But there's food to eat,
+        companionship to enjoy, work to be done, and a bed to sleep
+        in. Here is where you will likely spend the rest of your life.
+      scripts: [[gameOver, win]]
+    - answer: Find your own way.
+      result: >-
+        With no safe passage across the Great North Sea, the
+        corruption quickly catches up to you. It's not long before
+        your supplies dwindle and you starve to death.
+      scripts: [[gameOver, lose]]

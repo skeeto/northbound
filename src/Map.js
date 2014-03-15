@@ -12,7 +12,7 @@ Map.COLD_SCALE = 16;
 Map.COLD_RANGE = 256;
 Map.SUPPLY_RATE = 0.01;
 Map.END_DISTANCE = 512;
-Map.END_DEPTH = 12;
+Map.END_DEPTH = 8;
 Map.prototype.width = 32;
 
 Map.prototype.get = function(y) {

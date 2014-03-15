@@ -138,6 +138,14 @@ Story.filters = {
         return game.player.karma >= number;
     },
 
+    minDistance: function(d) {
+        return game.player.y >= d;
+    },
+
+    maxDistance: function(d) {
+        return game.player.y <= d;
+    },
+
     inCorruption: function() {
         var row = game.map.get(game.player.y);
         var tile = row[game.player.x];
