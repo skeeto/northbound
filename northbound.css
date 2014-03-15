@@ -325,3 +325,15 @@ body {
     50% { opacity: 0.5; }
     100% { opacity: 1.0; }
 }
+
+#intro .note {
+    font-size: 12px;
+    margin-top: 0;
+    color: #ccc;
+}
+
+#intro h2 {
+    font-size: 14px;
+    margin-bottom: 0px;
+    color: #ddd;
+}
