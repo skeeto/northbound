@@ -14,10 +14,10 @@
 - title: Before her time
   type: DIE Kelsey
   description: >-
-    Kelsey staggers to the ground. She is pale and death's feebleness
-    has taken hold of her. Her hands shake as she extends them to you
-    for something to eat or drink. You have nothing material to offer
-    her.
+    Kelsey time has come. She is pale and death's feebleness has taken
+    hold of her. Her hands shake as she extends them to you for
+    something to eat or drink. You have nothing material to offer her
+    that would prevent the inevitable.
 
     {{#hasPeople "Old Ralph"}}
     Old Ralph looks startled. Like you, he had observed her rapid
@@ -375,10 +375,10 @@
       scripts: [[supplies, -10]]
       result: Dropping off excess weight keeps the the ice from cracking.
     - answer: Ignore the issue and carry on.
-      scripts: [removerandom, [karma, -3]]
+      scripts: [dierandom, [karma, -3]]
       result: >-
         Throwing caution to the wind you move on. Unfortunately the
-        ice worsens and someone falls in, drowning.
+        ice worsens and cracks. Someone is going in.
 
 ###
 - title: Bear attack rescue
