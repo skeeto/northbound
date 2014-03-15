@@ -1,3 +1,116 @@
+- title: Before her time
+  type: DIE Kelsey
+  probability: 1
+  filter: [[hasPeople, "Kelsey"], [maxSupplies, 0]]
+  description: >-
+    Kelsey staggers to the ground. She is pale and death's feebleness
+    has taken hold of her. Her hands shake as she extends them to you
+    for something to eat or drink. You have nothing material to offer
+    her.
+
+    {{#hasPeople "Old Ralph"}}
+    Old Ralph looks startled. Like you, he had observed her rapid
+    decline. But, like you he hadn't thought much of it. Everyone is
+    hungry.
+    {{/hasPeople}}
+
+    Kelsey is young. She should have had the strength you had but...
+
+    She looks to you, eyes pleading for some form of comfort.
+
+  scripts: [[remove, "Kelsey"]]
+
+  options:
+    - answer: End her suffering with a kiss from your blade.
+      result: >-
+        She had done nothing to deserve less so you grant her death as
+        quick and painless as cold steel can provide.
+      scripts: [[karma, -3]]
+
+    - answer: Set up camp and stand vigil with her until her time.
+      result: >-
+        She holds onto life longer than you expected but death does
+        come. Before the end her eyes thank you for the sacrifice it
+        took to stand beside her.
+      scripts: [[supplies, -10]]
+
+    - filters: [[hasItems "Adjuticator Totem"]]
+      answer: Touch the Totem in your packk.
+      result: >-
+        You enter the darkness of the void and immediately locate
+        Kelsey. You experience her pain and loss as your minds gaze
+        passes over her.
+
+        {{#atLeastState, visions, 1}}
+        You recall your first experience in the void. The despair you
+        feel through her now is but a shadow of what it had been. It
+        has been replaced by something darker. Dread?
+        {{/atLeastState}}
+
+        Your mind reaches out to her and you attempt to comfort
+        her. She resists your attempts to remove her fears but does
+        not, can not, resist your tugs as you invite her deaper into
+        the void.
+
+        She relents and at that moment you detect another presence in
+        the void. The knowing that washes over Kelsey is so strong
+        that it is as if you hear her say the words "Phaqua Cheiray".
+      scripts: [[fireEvent, Phaqua]]
+
+- title: "Phaqua's Embrace"
+  type: Phaqua
+  description: >-
+    You sense the wake of turmoil left behind Phaqua Cheiray and can
+    follow that path back into the depth of the corruption. His
+    presence consumes all of Kelsey's attention.
+
+    Each emotion flowing from him is a mockery of the true
+    emotion. Now you feel him welcoming Kelsey into the void but you
+    can feel the taint of a sneer.
+
+    He is aware of you as well but pays very little attention. He
+    seems obsessed with the tiny thread of connection that remains
+    between Kelsey and her exhausted body. She struggles to resist his
+    welcome but you can see that her struggles will not hold.
+
+  options:
+    - answer: >-
+        Beckon to Kelsey through the void and try to sever the
+        thickening link between Phaqua and Kelsey.
+      result: >-
+        With reckless abandon you hurl your mind and will towards
+        Kelsey. Your will, which had been at the corner of her
+        perception, flashes across her mind with such severity that
+        she breaks her gaze with Phaqua. In that moment you again
+        welcome her to the void but without the taint of Phaqua's link
+        to the corruption.
+
+        Kelsey understands her choice and makes it without
+        hesitation. She releases her body, willing its remaining
+        strength to you and vanishes into the void and free of
+        Phaqua's grasp. In the moment before you step back out of the
+        void you feel a searing pain as Phaqua attention washes over
+        you.
+
+        Your senses return as the void disappears but the heat of
+        Phaqua's gaze remains as more than a memory. You have been
+        marked and the evidence is as plain as the raw new scar that
+        leads from your left ear to the base of your spine.
+      scripts: [[newitem, Mark of Phaqua], [supplies, 60]]
+
+    - filter: [[maxKarma, 0]]
+      answer: Leave this place without hesitation.
+      result: >-
+        You step back out of the void to see Kelsey's body writhing on
+        the ground. Her struggle in the void is of such intensity that
+        the echos can be seen here despite her weak hold on
+        life. The struggle is lost in mere seconds.
+
+        In the distance you sense that the power of the corruption as
+        grown. Perhaps, in time, the new slave that the corruption has
+        found will even become an ally.
+      scripts: [[karma, -20], [advance, 5]]
+
 - title: A wanderer asks to join you
   probability: 0.15
   description: >-

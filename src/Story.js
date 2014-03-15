@@ -120,16 +120,16 @@ Story.filters = {
         return game.player.supplies >= number;
     },
 
+    maxSupplies: function(number) {
+        return game.player.supplies <= number;
+    },
+
     maxKarma: function(number) {
         return game.player.karma <= number;
     },
 
     minKarma: function(number) {
         return game.player.karma >= number;
-    },
-
-    maxSupplies: function(number) {
-        return game.player.supplies <= number;
     },
 
     inCorruption: function() {
