@@ -333,6 +333,7 @@
 
 ###
 - title: Into the darkness
+  probability: 0.7
   filter: [inCorruption]
   description: >-
     The stillness of the corruption invades your mind. Its silent
@@ -347,6 +348,7 @@
 
 ###
 - title: Back into the darkness
+  probability: 0.4
   filter: [inCorruption, [atLeastState, corruption, 1]]
   description: >-
     You are wrapped familiar warmth of the corruption. Desire pulses

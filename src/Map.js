@@ -11,6 +11,8 @@ Map.TREE_SCALE = 8;
 Map.COLD_SCALE = 16;
 Map.COLD_RANGE = 256;
 Map.SUPPLY_RATE = 0.01;
+Map.END_DISTANCE = 512;
+Map.END_DEPTH = 12;
 Map.prototype.width = 32;
 
 Map.prototype.get = function(y) {
@@ -27,20 +29,32 @@ Map.road = function(y, width) {
 
 Map.select = function(value, x, y) {
     var tile = null;
-    if (value > 0.8) {
+    if (y === Map.END_DISTANCE - 1) {
         tile = new Tile(Tile.WATER3);
-    } else if (value > 0.75) {
+    } else if (y === Map.END_DISTANCE - 2) {
         tile = new Tile(Tile.WATER2);
-    } else if (value > 0.7) {
-        tile = new Tile(Tile.WATER1);
-    } else if (value > -0.4) {
+    } else if (y > Map.END_DISTANCE + Map.END_DEPTH + 1) {
+        tile = new Tile(Tile.WATER3);
+    } else if (y > Map.END_DISTANCE + Map.END_DEPTH + 0) {
+        tile = new Tile(Tile.WATER2);
+    } else if (y >= Map.END_DISTANCE) {
         tile = new Tile(Tile.GRASS);
-    } else if (value > -0.6) {
-        tile = new Tile(Tile.SOIL);
-    } else if (value > -0.9) {
-        tile = new Tile(Tile.DIRT);
     } else {
-        tile = new Tile(Tile.SAND);
+        if (value > 0.8) {
+            tile = new Tile(Tile.WATER3);
+        } else if (value > 0.75) {
+            tile = new Tile(Tile.WATER2);
+        } else if (value > 0.7) {
+            tile = new Tile(Tile.WATER1);
+        } else if (value > -0.4) {
+            tile = new Tile(Tile.GRASS);
+        } else if (value > -0.6) {
+            tile = new Tile(Tile.SOIL);
+        } else if (value > -0.9) {
+            tile = new Tile(Tile.DIRT);
+        } else {
+            tile = new Tile(Tile.SAND);
+        }
     }
     return tile;
 };
@@ -52,14 +66,20 @@ Map.cold = function(x, y) {
 };
 
 Map.bselect = function(value, base, x, y) {
-    if (value > 0.5) {
-        return Tile.MOUNTAIN;
-    } else if (value > 0.22) {
-        return Tile.TREE;
-    } else if (value < -0.2 && base.type === Tile.GRASS && !base.cold) {
-        return Tile.TALLGRASS;
-    } else {
+    if (y === Map.END_DISTANCE) {
+        return Tile.WALL;
+    } else if (y > Map.END_DISTANCE) {
         return null;
+    } else {
+        if (value > 0.5) {
+            return Tile.MOUNTAIN;
+        } else if (value > 0.22) {
+            return Tile.TREE;
+        } else if (value < -0.2 && base.type === Tile.GRASS && !base.cold) {
+            return Tile.TALLGRASS;
+        } else {
+            return null;
+        }
     }
 };
 
@@ -73,7 +93,7 @@ Map.prototype.generate = function(n) {
             roadmax = Math.max(road, lastroad);
         for (var x = 0; x < this.width; x++) {
             var tvalue = noise.simplex2(x / Map.SCALE, y / Map.SCALE),
-                tile = x >= roadmin && x <= roadmax
+                tile = x >= roadmin && x <= roadmax && y < Map.END_DISTANCE + 1
                     ? new Tile(Tile.ROAD) : Map.select(tvalue, x, y),
                 bvalue = noise.perlin2(x / Map.TREE_SCALE, y / Map.TREE_SCALE);
             tile.cold = Map.cold(x, y);
@@ -83,6 +103,11 @@ Map.prototype.generate = function(n) {
             if (!tile.obstacle && !tile.type.solid) {
                 if (Math.random() < Map.SUPPLY_RATE / (tile.cold ? 2 : 1)) {
                     tile.obstacle = Tile.SUPPLIES;
+                }
+            }
+            if (y === Map.END_DISTANCE) {
+                if (x === roadmin - 1 || x === roadmax + 1) {
+                    tile.obstacle = Tile.TOWER;
                 }
             }
             row.push(tile);
@@ -123,8 +148,9 @@ Map.prototype.placeQuests = function(y) {
 };
 
 Map.prototype.advance = function() {
-    var edge = ++this.edge,
-        row = this.get(edge);
+    var edge = ++this.edge;
+    if (edge >= Map.END_DISTANCE) return;
+    var row = this.get(edge);
     for (var x = 0; x < row.length; x++) {
         row[x].corrupted = true;
     }
@@ -144,6 +170,7 @@ Map.prototype.animateAdvance = function(n, callback) {
 };
 
 Map.prototype.lurk = function() {
+    if (this.edge >= Map.END_DISTANCE - 1) return;
     var lurk = this.edge + 1,
         row = this.get(lurk);
     for (var x = 0; x < row.length; x++) {

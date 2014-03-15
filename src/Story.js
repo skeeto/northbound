@@ -82,8 +82,8 @@ Story.scripts = {
     play: function(name) {
         Sfx.play(name);
     },
-    gameOver: function() {
-        game.end();
+    gameOver: function(state) {
+        game.end(state || 'lose');
     },
     setState: function(story, state) {
         game.setStoryState(story, state);
