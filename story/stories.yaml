@@ -1,4 +1,5 @@
 - title: A wanderer asks to join you
+  probability: 0.15
   description: >-
     A weary old man in ragged clothing approaches you slowly. He must
     have been following you for awhile now.
