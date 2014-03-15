@@ -718,7 +718,7 @@
 
 ###
 - title: Safety in sight!
-  filter: [[minDistance, 505]]
+  filter: [[minDistance, 509]]
   probability: 1
   description: >-
     You come to a fortress far in the north. It's the last land
