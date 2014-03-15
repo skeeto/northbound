@@ -22,6 +22,7 @@ function Game() {
 
 Game.ADVANCE_RATE = 3;
 Game.STORY_RATE = 25;
+Game.STORY_PROBABILITY = 0.05;
 
 Game.randomIndex = function(arr) {
     return Math.floor(Math.random() * arr.length);
@@ -62,7 +63,10 @@ Game.prototype.step = function(callback) {
     this.count++;
     var storytime = false;
     if (!this.introMode && Math.random() < 1 / Game.STORY_RATE) {
-        var valid = Story.select(this);
+        var valid = Story.select(this).filter(function(s) {
+            var p = s.probability;
+            return Math.random() < (p != null ? p : Game.STORY_PROBABILITY);
+        });
         if (valid.length > 0) {
             var story = Game.randomChoice(valid);
             story.used = true;
