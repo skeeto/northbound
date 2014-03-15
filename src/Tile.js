@@ -41,15 +41,19 @@ Tile.get = function(src, props) {
             return [ave, ave, ave, c[3]];
         });
         if (props.obstacle) {
-            tile.snow = Tile.filter(image, function(c, w, h, x, y) {
-                var add = 128 + 192 * (1 - y / h);
-                return [
-                    c[0] + add - 128,
-                    c[1] + add - 128,
-                    c[2] + add - 128,
-                    c[3]
-                ];
-            });
+            if (!props.nocold) {
+                tile.snow = Tile.filter(image, function(c, w, h, x, y) {
+                    var add = 128 + 192 * (1 - y / h);
+                    return [
+                        c[0] + add - 128,
+                        c[1] + add - 128,
+                        c[2] + add - 128,
+                        c[3]
+                    ];
+                });
+            } else {
+                tile.snow = image;
+            }
         } else if (props.water) {
             tile.snow = Tile.filter(image, function(c) {
                 var tint = 64;
@@ -96,6 +100,16 @@ Tile.SUPPLIES = Tile.get('crates.png', {
     solid: false,
     obstacle: true,
     supplies: true
+});
+Tile.WALL = Tile.get('wall.png', {
+    solid: true,
+    obstacle: true,
+    nocold: true
+});
+Tile.TOWER = Tile.get('tower.png', {
+    solid: true,
+    obstacle: true,
+    nocold: true
 });
 
 /* Misc */
