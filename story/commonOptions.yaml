@@ -31,4 +31,4 @@
         All sound is gone. All fear is gone. All hope. Gone. You have
         finally found a sort of peace. The darkness has a warmth of its
         own.
-      scripts: [gameOver]
+      scripts: [[gameOver, 'lose']]
