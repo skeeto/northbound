@@ -10,7 +10,8 @@ Story.load = function() {
         Story.commonOptions = jsyaml.load(data);
     });
     $.get('story/quests.yaml', function(data) {
-        game.map.addQuests(jsyaml.load(data));
+        Story.quests = jsyaml.load(data);
+        game.map.addQuests(Story.quests);
     });
 };
 
@@ -63,14 +64,11 @@ Story.scripts = {
     },
     removerandom: function() {
         Story.scripts.remove(Game.randomChoice(game.player.party));
-        // game.fireEvent('REMOVE ' + person);
+        Story.scripts.fireEvent('REMOVE ' + person);
     },
     dierandom: function() {
         var person = Game.randomChoice(game.player.party);
-        // game.fireEvent('DIE ' + person);
-    },
-    fireevent: function(event) {
-        // game.fireEvent(event);
+        Story.scripts.fireEvent('DIE ' + person);
     },
     karma: function(n) {
         game.player.karma += Story.toNumber(n);
@@ -93,7 +91,7 @@ Story.scripts = {
     reuseable: function(story) {
         story.used = false;
     },
-    trigger: function(type) {
+    fireEvent: function(type) {
         var story = Story.select(type).shuffle()[0];
         if (story != null) {
             game.storyQueue.push(story);
