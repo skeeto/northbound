@@ -92,6 +92,12 @@ Story.scripts = {
     },
     reuseable: function(story) {
         story.used = false;
+    },
+    trigger: function(type) {
+        var story = Story.select(type).shuffle()[0];
+        if (story != null) {
+            game.storyQueue.push(story);
+        }
     }
 };
 
@@ -311,11 +317,13 @@ Story.act = function(option, callback) {
     });
 };
 
-Story.select = function(game) {
+Story.select = function(type) {
     if (Story.stories == null) {
         return [];
     }
-    return Story.stories.filter(function(story) {
+    return Story.stories.filter(function(s) {
+        return s.type == type; /* allow type == null == undefined */
+    }).filter(function(story) {
         return !story.used && (!story.filter || Story.filter(story.filter));
     });
 };

@@ -14,6 +14,7 @@ function Game() {
     this.player.items = [];
     this.player.fatigue = 0;
     this.advanceQueue = 0;
+    this.storyQueue = [];
     this.storyState = {};
     this.units = [this.player];
     this._units = null;
@@ -59,11 +60,19 @@ Game.prototype.step = function(callback) {
         return;
     }
     this.player.party.shuffle();
-
     this.count++;
+
     var storytime = false;
-    if (!this.introMode && Math.random() < 1 / Game.STORY_RATE) {
-        var valid = Story.select(this).filter(function(s) {
+    if (this.storyQueue.length > 0) {
+        var story = this.storyQueue.shift();
+        story.used = true;
+        display.draw();
+        Story.show(story, callback);
+        storytime = true;
+    }
+
+    if (!storytime && !this.introMode && Math.random() < 1 / Game.STORY_RATE) {
+        var valid = Story.select().filter(function(s) {
             var p = s.probability;
             return Math.random() < (p != null ? p : Game.STORY_PROBABILITY);
         });
