@@ -1,7 +1,18 @@
+- title: "Hunger's Cost"
+  filter: [[minParty, 1], [maxSupplies, 0]]
+  probability: 1
+  description: >-
+    No one has had any food in some time but, for one of you, it is
+    time to pay the ultimate price.
+
+  scripts: [dierandom, reuseable]
+
+  options:
+    - answer: "There is no way out. Hunger's price must be paid."
+      result: Death rolls its dice.
+
 - title: Before her time
   type: DIE Kelsey
-  probability: 1
-  filter: [[hasPeople, "Kelsey"], [maxSupplies, 0]]
   description: >-
     Kelsey staggers to the ground. She is pale and death's feebleness
     has taken hold of her. Her hands shake as she extends them to you
@@ -35,13 +46,13 @@
       scripts: [[supplies, -10]]
 
     - filters: [[hasItems "Adjuticator Totem"]]
-      answer: Touch the Totem in your packk.
+      answer: Touch the Totem in your pack.
       result: >-
         You enter the darkness of the void and immediately locate
         Kelsey. You experience her pain and loss as your minds gaze
         passes over her.
 
-        {{#atLeastState, visions, 1}}
+        {{#atLeastState visions 1}}
         You recall your first experience in the void. The despair you
         feel through her now is but a shadow of what it had been. It
         has been replaced by something darker. Dread?
@@ -296,7 +307,7 @@
         of sight (corruption advances 2 tiles).
       result: >-
         You avoid the conflict and hide until the campers give up
-        their search. You managea keep all of the supplies.
+        their search. You manage keep all of the supplies.
       scripts: [[advance, 2]]
 
     - filter: [[minParty, 1]]
