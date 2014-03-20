@@ -1,6 +1,7 @@
 # Northbound Roguelike
 
-Play it online: [Northbound](http://skeeto.github.io/northbound/)
+* Play it online: [Northbound](http://skeeto.github.io/northbound/)
+* [UberHunter's playthrough](http://youtu.be/J4jOxma4uhE)
 
 This is an entry for [7DRL 2014][7drl]. It's a survival, story-driven
 adventure game, focusing on providing an interesting atmosphere.
@@ -14,6 +15,15 @@ northward!
 The corruption will follow you on your heels from the south. Watch
 your supplies, rest when you get tired, and do whatever it takes to
 survive.
+
+## Running Locally
+
+The game *can* be run locally from this repository, but due to browser
+security limitations **it must be hosted through a web server**, not
+visited directly on your filesystem. If you happen to have Python
+installed, this is simple:
+
+    python -m SimpleHTTPServer
 
 ### Credits
 
